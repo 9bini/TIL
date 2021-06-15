@@ -2,6 +2,7 @@ plugins {
     id 'org.springframework.boot' version '2.5.1'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id "org.flywaydb.flyway" version "7.10.0"
 }
 
 group = 'com.example'
@@ -22,11 +23,31 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 test {
     useJUnitPlatform()
+}
+
+// 운영 DB
+flyway {
+    url = 'jdbc:mysql://localhost:3306/db_example'
+    user = 'sa'
+    password = 'password'
+    locations = ['classpath:db/migration']
+}
+
+// 실무에 적용한다고 가정하면 운영과 테스트 설정, cmd 분리하는 걸 권장
+// flyway 운영과 test가 동시에 적용되지 않는다.
+
+
+// Test DB
+flyway {
+    url = 'jdbc:mysql://localhost:3306/db_example_test'
+    user = 'test'
+    password = 'password'
+    locations = ['filesystem:src/test/resources/db/migration']
 }
