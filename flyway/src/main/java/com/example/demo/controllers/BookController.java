@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.daos.BookDao;
-import com.example.demo.models.Book;
+import com.example.demo.model.Book;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 

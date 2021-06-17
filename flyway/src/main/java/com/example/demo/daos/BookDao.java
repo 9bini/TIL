@@ -1,6 +1,6 @@
 package com.example.demo.daos;
 
-import com.example.demo.models.Book;
+import com.example.demo.model.Book;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
