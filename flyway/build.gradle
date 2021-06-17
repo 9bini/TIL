@@ -34,17 +34,10 @@ test {
     useJUnitPlatform()
 }
 
-// 운영 DB
-flyway {
-    url = 'jdbc:mysql://localhost:3306/db_example'
-    user = 'sa'
-    password = 'password'
-    locations = ['classpath:db/migration']
-}
+
 
 // 실무에 적용한다고 가정하면 운영과 테스트 설정, cmd 분리하는 걸 권장
 // flyway 운영과 test가 동시에 적용되지 않는다.
-
 
 // Test DB
 flyway {
@@ -52,4 +45,12 @@ flyway {
     user = 'test'
     password = 'password'
     locations = ['filesystem:src/test/resources/db/migration']
+}
+
+// 운영 DB
+flyway {
+    url = 'jdbc:mysql://localhost:3306/db_example'
+    user = 'sa'
+    password = 'password'
+    locations = ['classpath:db/migration']
 }
