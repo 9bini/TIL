@@ -230,3 +230,9 @@ gradlew.bat
 gradlew
 settings.gradle
 
+
+mvnw
+
+mvnw.cmd
+
+*/target/classes/
