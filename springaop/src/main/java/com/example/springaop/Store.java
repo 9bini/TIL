@@ -13,7 +13,7 @@ public class Store {
     }
 
     private void greeting(User user) {
-        IGreetingMachine greetingMachine = new GreetingMachineProxy();
+        IGreetingMachine greetingMachine = new DancingGreetingMachineDecorator(new AlarmGreetingMachineDecorator(new GreetingMachine()));
         greetingMachine.greet(user);
     }
 }
