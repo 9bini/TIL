@@ -1,4 +1,7 @@
-package com.example.springaop;
+package com.example.springaop.decotator;
+
+import com.example.springaop.IGreetingMachine;
+import com.example.springaop.User;
 
 public class AlarmGreetingMachineDecorator extends GreetingMachineDecorator {
     public AlarmGreetingMachineDecorator(IGreetingMachine greetingMachine) {

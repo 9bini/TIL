@@ -1,4 +1,6 @@
-package com.example.springaop;
+package com.example.springaop.decotator;
+
+import com.example.springaop.IGreetingMachine;
 
 public abstract class GreetingMachineDecorator implements IGreetingMachine {
     protected IGreetingMachine greetingMachine;
