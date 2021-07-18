@@ -53,3 +53,20 @@ AOP의 용어는 Spring에 국한 된것이 아님
 1. Weaving - 다른 애플리케이션 유형 또는 객체와 Aspect를 연결하여 권장 개체를 만들는 것.
 
 출처: https://fastcampus.co.kr/spring_academia
+
+### AOP 어노테이션
+
+1. @Before : 메소드 실행 전
+2. @After : 메소드 실행 후
+3. @BeforeReturning : 메소드 반환 전
+4. @BeforeThrowing : 에러 반환 전
+5. @AfterReturning : 메소드 반환 후
+6. @AfterThrowing : 에러 반환 후
+7. @Around : 메소드 실행 전후
+
+어노테이션 사용 시 어디에서 사용할지에 대한 정보를 작성해워야한다.
+
+```java
+@Before("@annotation(AlarmGreetingMachine)")
+// 이런 식으로 어노테이션을 작성할 수 있다.
+```

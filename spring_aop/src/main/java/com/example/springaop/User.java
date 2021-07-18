@@ -17,7 +17,8 @@ public class User {
         return "Hello";
     }
 
-    public void visitTo(Store store){
-        store.visitedBy(this);
+    public void visitTo(VIP vip){
+        vip.visitedBy(this);
     }
+
 }
