@@ -1,4 +1,4 @@
-# 12.6 타입코드를 서브클래스로 바꾸기
+# 12.6 타입코드를 서브클래스로 바꾸기 - 상태/전략패턴으로 전환
 
 ## 전
 
@@ -117,5 +117,143 @@ class Employee {
   constructor(name) {
     this._name = name;
   }
+}
+```
+
+## 간접 상속할 때
+
+```javascript
+class Employee{
+    constructor(name, type){
+        this.validateType(type);
+        this._name = name;
+        this._type = type;
+    }
+
+    validateType(arg){
+        if(!["engineer", "manager","salesperson"].includes(arg)){
+            throw new Error(`${arg}라는 직원 유형은 없습니다.`);
+        }
+        get type(){return this._type;}
+        set type(type){this._type = type;}
+
+        get capitalizedtype(){
+            return this._type.charAt(0).toUpperCase() + this._type.substr(1).toLowerCase();
+        }
+        toString(){
+            return `${this._name} (${this._capitalizedtype})`;
+        }
+    }
+}
+```
+
+### 1. 타입 코드를 객체로 바꾸기 (7.3 기본형을 객체로 바꾸기)
+
+```javascript
+class EmployeeType{
+    constructor(aString){
+        this.value = aString;
+    }
+    toString(){return this._value;}
+}
+class Employee{
+    constructor(name, type){
+        this.validateType(type);
+        this._name = name;
+        this._type = type;
+    }
+
+    validateType(arg){
+        if(!["engineer", "manager","salesperson"].includes(arg)){
+            throw new Error(`${arg}라는 직원 유형은 없습니다.`);
+        }
+        get typeString(){return this._type.toString();}
+        get type(){return this._type;}
+        set type(type){this._type = type;}
+
+        get capitalizedtype(){
+            return this.typeString.charAt(0).toUpperCase() + this.typeString.substr(1).toLowerCase();
+        }
+        toString(){
+            return `${this._name} (${this._capitalizedtype})`;
+        }
+    }
+}
+```
+
+```javascript
+class Employee{
+    constructor(name, type){
+        this.validateType(type);
+        this._name = name;
+        this._type = type;
+    }
+
+    validateType(arg){
+        if(!["engineer", "manager","salesperson"].includes(arg)){
+            throw new Error(`${arg}라는 직원 유형은 없습니다.`);
+        }
+        get typeString(){return this._type.toString();}
+        get type(){return this._type;}
+        set type(type){this._type = type;}
+        static createEmployeeType(aString){
+            switch (aString) {
+                case "engineer":return new Employee();
+                case "salesperson":return new Salesperson();
+                case "manager":return new Manager();
+                default: throw new Error(`${aString}라는 직원 유형은 없습니다.`);
+            }
+        }
+
+        get capitalizedtype(){
+            return this.typeString.charAt(0).toUpperCase() + this.typeString.substr(1).toLowerCase();
+        }
+        toString(){
+            return `${this._name} (${this._capitalizedtype})`;
+        }
+    }
+}
+```
+
+```javascript
+
+class EmployeeType{
+    constructor(aString){
+        this.value = aString;
+    }
+    toString(){return this._value;}
+    get capitalizedName(){
+            return this.toString.charAt(0).toUpperCase()
+            + this.toString.substr(1).toLowerCase();
+        }
+}
+
+class Employee{
+    constructor(name, type){
+        this.validateType(type);
+        this._name = name;
+        this._type = type;
+    }
+
+    validateType(arg){
+        if(!["engineer", "manager","salesperson"].includes(arg)){
+            throw new Error(`${arg}라는 직원 유형은 없습니다.`);
+        }
+        get typeString(){return this._type.toString();}
+        get type(){return this._type;}
+        set type(type){this._type = type;}
+        static createEmployeeType(aString){
+            switch (aString) {
+                case "engineer":return new Employee();
+                case "salesperson":return new Salesperson();
+                case "manager":return new Manager();
+                default: throw new Error(`${aString}라는 직원 유형은 없습니다.`);
+            }
+        }
+
+        toString(){
+            return `${this._name} (${this.type.capitalizedName})`;
+        }
+    }
 }
 ```
