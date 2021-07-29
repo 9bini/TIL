@@ -2,5 +2,5 @@ package me.koobin.shop.entity;
 
 
 
-public enum ProductState extends Product {
+public enum ProductState {
 }
