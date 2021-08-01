@@ -13,8 +13,7 @@ public class CategoryOptionItem {
 
 
     @ManyToOne
-    @JoinColumn(name = "CATEGORY_OPTION_ID")
-    @Column(nullable = false)
+    @JoinColumn(name = "CATEGORY_OPTION_ID", nullable = false)
     private CategoryOption categoryOption;
 
     @Column(nullable = false)
