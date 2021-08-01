@@ -23,16 +23,22 @@ dependencies {
     //querydsl 추가
     implementation 'com.querydsl:querydsl-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+
+
     // SWAGGER START
     implementation 'io.springfox:springfox-boot-starter:3.0.0'
     implementation 'io.springfox:springfox-swagger-ui:2.9.2'
     // END
+
+
 
 
 }
@@ -43,6 +49,7 @@ test {
 
 //querydsl 추가 시작
 def querydslDir = "$buildDir/generated/querydsl"
+
 querydsl {
     jpa = true
     querydslSourcesDir = querydslDir

@@ -15,6 +15,9 @@ spring:
         default_batch_fetch_size: 1000 # select in 기능을 한번에 처리하는 양
     open-in-view: false # open-in-view 기능 off
     database-platform: org.hibernate.dialect.MySQL8Dialect # mysql 버전 8 방언 설정
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
 
 
 logging:
