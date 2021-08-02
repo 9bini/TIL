@@ -1,4 +1,4 @@
-package me.koobin.shop.controller.api;
+package me.koobin.shop.controller;
 
 import lombok.RequiredArgsConstructor;
 import me.koobin.shop.dto.Header;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/docs")
 public class DocsApiController {
+
     private final DocsService docsService;
 
     @PostMapping("")
@@ -19,8 +20,8 @@ public class DocsApiController {
         return(docs != null)? Header.OK(docs) : Header.Error();
     }
 
-    @GetMapping("{id}")
-    public Header<Docs> read(@PathVariable Long id) {
+    @GetMapping("/{id}")
+    public Header<Docs> read(@PathVariable("id") Long id) {
         Docs docs = docsService.read(id);
         return(docs != null)? Header.OK(docs) : Header.Error();
     }
@@ -31,8 +32,8 @@ public class DocsApiController {
         return(docs != null)? Header.OK(docs) : Header.Error();
     }
 
-    @DeleteMapping("{id}")
-    public Header<Docs> delete(@PathVariable Long id) {
+    @DeleteMapping("/{id}")
+    public Header<Docs> delete(@PathVariable("id") Long id) {
         boolean isDelete = docsService.delete(id);
         return(isDelete)? Header.OK() : Header.Error();
     }

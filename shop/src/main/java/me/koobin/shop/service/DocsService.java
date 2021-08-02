@@ -2,17 +2,22 @@ package me.koobin.shop.service;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import me.koobin.shop.entity.Docs;
 import me.koobin.shop.repository.DocsRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-@Service
+
+@Slf4j
 @RequiredArgsConstructor
-@Transactional
+@Service
 public class DocsService {
+
 
     private final DocsRepository docsRepository;
 
@@ -22,6 +27,7 @@ public class DocsService {
 
 
     public Docs read(Long id) {
+        log.info("test");
         return docsRepository.getById(id);
     }
 

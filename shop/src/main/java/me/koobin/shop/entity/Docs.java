@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 
-@Entity @Getter @EqualsAndHashCode(of = "id")
+@Entity @Getter
 @NoArgsConstructor @AllArgsConstructor
 @ToString
 public class Docs {
