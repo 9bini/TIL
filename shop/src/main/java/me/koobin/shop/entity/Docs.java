@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Entity @Getter
 @NoArgsConstructor @AllArgsConstructor
 @ToString
+@Builder
 public class Docs {
     @Id
     @GeneratedValue

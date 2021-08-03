@@ -1,5 +1,7 @@
 package me.koobin.shop.controller;
 
+import me.koobin.shop.dto.Header;
+import me.koobin.shop.dto.ReadDocsDTO;
 import me.koobin.shop.entity.Docs;
 import me.koobin.shop.repository.DocsRepository;
 import me.koobin.shop.service.DocsService;
@@ -54,9 +56,16 @@ class DocsApiControllerTest {
 
     @Test
     void testRead() throws Exception {
-        Docs docs = new Docs(null, "account", "email@email.com", "010-000-000", LocalDateTime.now(), LocalDateTime.now());
+        Docs docs = Docs.builder()
+                .id(1L)
+                .account("account")
+                .email("email@email.com")
+                .phoneNumber("010-000-000")
+                .createdDate(LocalDateTime.now())
+                .modifiedDate(LocalDateTime.now())
+                .build();
 
-        given(docsService.read(1L)).willReturn(docs);
+        given(docsService.read(1L)).willReturn(Header.OK(new ReadDocsDTO(docs)));
 
         mockMvc.perform(get("/api/v1/docs/{id}", 1))
                 .andDo(print())
@@ -73,9 +82,4 @@ class DocsApiControllerTest {
                         )
                 ));
     }
-    @Test
-    void test(){
-
-    }
-
 }

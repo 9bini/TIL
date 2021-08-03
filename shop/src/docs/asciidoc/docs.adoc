@@ -1,0 +1,21 @@
+:basedir: {docdir}/../../../
+:snippets: {basedir}/build/generated-snippets
+
+= RESTFull Notes API Guide
+:doctype: user
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectnums:
+:sectlinks:
+:sectanchors:
+
+[[api]]
+== Docs Api
+
+include::{snippets}/docs/curl-request.adoc[]
+include::{snippets}/docs/http-request.adoc[]
+include::{snippets}/docs/path-parameters.adoc[]
+include::{snippets}/docs/http-response.adoc[]
+include::{snippets}/docs/response-fields.adoc[]
