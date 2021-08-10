@@ -1,4 +1,4 @@
-package me.koobin.shop.controller;
+package me.koobin.shop.api.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
