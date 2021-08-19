@@ -1,7 +1,7 @@
 package me.koobin.shop.api.controller;
 
 import lombok.RequiredArgsConstructor;
-import me.koobin.shop.api.controller.dto.CreateProduct;
+import me.koobin.shop.api.controller.dto.CreateProductDTO;
 import me.koobin.shop.service.ProductService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +14,8 @@ public class ProductApiController {
     private final ProductService productService;
 
     @PostMapping
-    public String register(CreateProduct createProduct){
-
+    public String register(CreateProductDTO createProductDTO){
+        productService.newProduct(createProductDTO);
         return "";
     }
 }
