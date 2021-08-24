@@ -6,5 +6,5 @@ public class OptionDTO {
     private Long index;
     private String optionName;
     private List<OptionValueDTO> optionValueDTOs;
-    private boolean require;
+    private Boolean require;
 }

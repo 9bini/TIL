@@ -39,18 +39,29 @@ public class Product {
     private String deliveryPrecautions;
     private String basicExplanation;
 
+    @Column(nullable = false)
+    private String productName;
+    @Column(nullable = false)
+    private String manufacturer;
+    @Column(nullable = false)
+    private String countryManufacture;
+    @Column(nullable = false)
+    private String inquiry;
+    @Column(nullable = false)
+    private Long netPrice;
+    @Column(nullable = false)
+    private Long sellingPrice;
+    @Column(nullable = false)
+    private Long discountRate;
+    @Column(nullable = false)
+    private Long mileage;
+
 
 
     @Embedded
     private BaseTimeEntity baseTimeEntity;
 
-    public void setBrand(Brand brand) {
-        this.brand = brand;
-    }
 
-    public Brand getBrand() {
-        return brand;
-    }
 
     public static void newProduct() {
     }

@@ -41,10 +41,10 @@ public class CreateProductDTO {
 
     private String tag;
 
-    private List<Long> seasons = new ArrayList<>();
-    private List<Long> forms = new ArrayList<>();
-    private List<Long> colors = new ArrayList<>();
-    private List<Long> sizes = new ArrayList<>();
+    private List<String> seasons = new ArrayList<>();
+    private List<String> forms = new ArrayList<>();
+    private List<String> colors = new ArrayList<>();
+    private List<String> sizes = new ArrayList<>();
 
     private String productName;
     private String manufacturer;
