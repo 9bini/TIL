@@ -1,13 +1,18 @@
 package me.koobin.shop.entity;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import me.koobin.shop.domain.ProductGender;
 import me.koobin.shop.embedded.BaseTimeEntity;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Product {
     @Id
     @GeneratedValue
@@ -57,12 +62,36 @@ public class Product {
     private Long mileage;
 
 
-
     @Embedded
     private BaseTimeEntity baseTimeEntity;
 
 
-
-    public static void newProduct() {
+    public static Product newProduct(Category category, Brand brand, ProductGender productGender, String exposedProductName
+            , String companyProductName, String additionalText, String productPrecautions, String orderPrecautions
+            , String deliveryPrecautions, String basicExplanation, String productName, String manufacturer
+            , String countryManufacture, String inquiry, Long netPrice, Long sellingPrice, Long discountRate) {
+        // THING 마일리지 값을 저장해서 처리하는 것이 좋을까 아니면 사용자 등급에 따라 마일리지를 처리하는게 좋을 까
+        // THING 이것도 물로 운영치침에 따라 변경되 겠지
+        return Product.builder()
+                .category(category)
+                .brand(brand)
+                .productGender(productGender)
+                .exposedProductName(exposedProductName)
+                .companyProductName(companyProductName)
+                .additionalText(additionalText)
+                .productPrecautions(productPrecautions)
+                .orderPrecautions(orderPrecautions)
+                .deliveryPrecautions(deliveryPrecautions)
+                .basicExplanation(basicExplanation)
+                .productName(productName)
+                .manufacturer(manufacturer)
+                .countryManufacture(countryManufacture)
+                .inquiry(inquiry)
+                .netPrice(netPrice)
+                .sellingPrice(sellingPrice)
+                .discountRate(discountRate)
+                .mileage(1L)
+                .build();
     }
+
 }

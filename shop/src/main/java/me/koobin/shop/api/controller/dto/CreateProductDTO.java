@@ -1,5 +1,6 @@
 package me.koobin.shop.api.controller.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data @Builder
-@NoArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
 public class CreateProductDTO {
     @NotNull(message = "카테고리는 필수 입니다.")
     private Long categoryId;
@@ -39,7 +40,7 @@ public class CreateProductDTO {
     private List<ModelSizeInfoDto> modelSizeInfoDtos = new ArrayList<>();
     private List<SizeChartDto> sizeCharts = new ArrayList<>();
 
-    private String tag;
+    private List<String> tags;
 
     private List<String> seasons = new ArrayList<>();
     private List<String> forms = new ArrayList<>();

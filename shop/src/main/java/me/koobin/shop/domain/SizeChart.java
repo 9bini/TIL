@@ -1,11 +1,15 @@
 package me.koobin.shop.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 import me.koobin.shop.entity.Product;
 
 import javax.persistence.*;
 
 
 @Entity
+@Builder @NoArgsConstructor @AllArgsConstructor
 public class SizeChart {
     @Id @GeneratedValue
     private Long id;
