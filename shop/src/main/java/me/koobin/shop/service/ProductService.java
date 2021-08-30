@@ -26,29 +26,41 @@ public class ProductService {
     private final ModelSizeInfoRepository modelSizeInfoRepository;
     private final SizeChartRepository sizeChartRepository;
     private final TagRepository tagRepository;
+    private final TagProductRepository tagProductRepository;
+
 
     public void newProduct(CreateProductDTO createProductDTO) {
         Product product = getNewProduct(createProductDTO);
         productRepository.save(product);
         insertModelSize(product, createProductDTO.getModelSizeInfoDtos());
         insertSizeChart(product, createProductDTO.getSizeCharts());
-        // TODO 검색어 등록
         insertKeyWord(product, createProductDTO.getTags());
         // TODO 검색 필터
+        insertSearchFilter(product, createProductDTO);
 
 
+    }
+
+    private void insertSearchFilter(Product product, CreateProductDTO createProductDTO) {
+        // TODO 검색 필드 처리
+        List<Long> colors = createProductDTO.getColors();
+        List<Long> seasons = createProductDTO.getSeasons();
+        List<Long> forms = createProductDTO.getForms();
+        List<Long> sizes = createProductDTO.getSizes();
     }
 
     private List<Tag> insertKeyWord(Product product, List<String> tags) {
         List<Tag> result = new ArrayList<>();
         for (String tag : tags) {
-            Optional<Tag> byTitle = tagRepository.findByTitle(tag);
-            if (!byTitle.isPresent()){
-                Tag save = tagRepository.save(Tag.builder().title(tag).build());
-                result.add(save);
-            }else result.add(byTitle.orElseThrow(IllegalStateException::new));
+            Tag tagEntity = getTag(tag);
+            tagProductRepository.save(new TagProduct(tagEntity, product));
         }
         return result;
+    }
+
+    private Tag getTag(String tag) {
+        Optional<Tag> byTitle = tagRepository.findByTitle(tag);
+        return !byTitle.isPresent() ? tagRepository.save(Tag.builder().title(tag).build()) : byTitle.orElseThrow(IllegalStateException::new);
     }
 
     private List<SizeChart> insertSizeChart(Product product, List<SizeChartDto> sizeCharts) {

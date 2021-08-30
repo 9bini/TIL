@@ -13,6 +13,6 @@ public class ProductOption {
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
     private String name;
-    private boolean require;
+    private boolean requireOption;
 
 }

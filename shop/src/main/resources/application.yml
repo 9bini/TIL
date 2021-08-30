@@ -6,7 +6,7 @@ spring:
     password: password
   jpa:
     hibernate:
-      ddl-auto: create # DB 스키마 자동 생성 - 기본테이블 삭제 후 다시 생성
+      ddl-auto: update # DB 스키마 자동 생성 - 기본테이블 삭제 후 다시 생성
     properties:
       hibernate:
         show_sql: true #  SQL문이 콘솔에 출력
