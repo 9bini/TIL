@@ -3,7 +3,7 @@ package me.koobin.shop.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"identificationCode", "value"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"IDENTIFICATION_CODE_ID", "value"}))
 public class IdentificationDetailCode {
     @Id
     @GeneratedValue
