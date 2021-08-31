@@ -27,6 +27,8 @@ public class ProductService {
     private final SizeChartRepository sizeChartRepository;
     private final TagRepository tagRepository;
     private final TagProductRepository tagProductRepository;
+    private final IdentificationDetailCodeRepository identificationDetailCodeRepository;
+    private final SearchFilterContentProductRepository searchFilterContentProductRepository;
 
 
     public void newProduct(CreateProductDTO createProductDTO) {
@@ -35,18 +37,29 @@ public class ProductService {
         insertModelSize(product, createProductDTO.getModelSizeInfoDtos());
         insertSizeChart(product, createProductDTO.getSizeCharts());
         insertKeyWord(product, createProductDTO.getTags());
-        // TODO 검색 필터
-        insertSearchFilter(product, createProductDTO);
+        processSearchFilter(product, createProductDTO);
+        // TODO 상품 옵션 등록
+
 
 
     }
 
-    private void insertSearchFilter(Product product, CreateProductDTO createProductDTO) {
-        // TODO 검색 필드 처리
+    private void processSearchFilter(Product product, CreateProductDTO createProductDTO) {
         List<Long> colors = createProductDTO.getColors();
+        callRepetitionInsertSearchFilterContentProduct(product, colors);
         List<Long> seasons = createProductDTO.getSeasons();
+        callRepetitionInsertSearchFilterContentProduct(product, seasons);
         List<Long> forms = createProductDTO.getForms();
+        callRepetitionInsertSearchFilterContentProduct(product, forms);
         List<Long> sizes = createProductDTO.getSizes();
+        callRepetitionInsertSearchFilterContentProduct(product, sizes);
+    }
+
+    private void callRepetitionInsertSearchFilterContentProduct(Product product, List<Long> identificationDetailCodeIds) {
+        for (Long identificationDetailCodeId : identificationDetailCodeIds) {
+            IdentificationDetailCode identificationDetailCode = identificationDetailCodeRepository.findById(identificationDetailCodeId).orElseThrow(IllegalArgumentException::new);
+            searchFilterContentProductRepository.save(new SearchFilterContentProduct(identificationDetailCode, product));
+        }
     }
 
     private List<Tag> insertKeyWord(Product product, List<String> tags) {
@@ -60,7 +73,7 @@ public class ProductService {
 
     private Tag getTag(String tag) {
         Optional<Tag> byTitle = tagRepository.findByTitle(tag);
-        return !byTitle.isPresent() ? tagRepository.save(Tag.builder().title(tag).build()) : byTitle.orElseThrow(IllegalStateException::new);
+        return !byTitle.isPresent() ? tagRepository.save(Tag.builder().title(tag).build()) : byTitle.orElseThrow(IllegalArgumentException::new);
     }
 
     private List<SizeChart> insertSizeChart(Product product, List<SizeChartDto> sizeCharts) {
