@@ -1,0 +1,74 @@
+###
+POST http://localhost:8080/product/v1/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "categoryId": 1,
+  "productGender": "FEMAIL",
+  "exposedProductName": "노출 상품명",
+  "companyProductName": "업체상품명",
+  "additionalText": "추가 테스트",
+  "brand": "",
+  "productPrecautions": "제품 주의사항",
+  "orderPrecautions": "주문 주의사항",
+  "deliveryPrecautions": "배달 주의사항",
+  "basicExplanation": "상품 기본 설명",
+  "modelSizeInfoDtos": [
+    {
+      "gender": "MALE",
+      "height": 180.6,
+      "weight": 83.0,
+      "wearingSize": "XL",
+      "fitType": "REGULAR"
+    }
+  ],
+  "sizeCharts": [
+    {
+      "sizeName": 23,
+      "totalLength": 25,
+      "shoulderWidth": 25,
+      "sleeveLength": 5,
+      "waistWidth": 25,
+      "hipWidth": 25,
+      "crotchWidth": 25,
+      "thighWidth": 25,
+      "hemWidth": 25
+    }
+  ],
+  "tags": [
+    "태그1",
+    "태그2"
+  ],
+  "seasons": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "forms": [
+    101,
+    102,
+    103
+  ],
+  "colors": [
+    201,
+    202,
+    203
+  ],
+  "sizes": [
+    301,
+    302,
+    303
+  ],
+  "productName": "제품명",
+  "manufacturer": "제조사",
+  "countryManufacture": "제조국",
+  "inquiry": "A/S 문의",
+  "netPrice": 10000,
+  "sellingPrice": 5000,
+  "optionDTOs": [],
+  "optionDetailDTOs": []
+}
+
+###
