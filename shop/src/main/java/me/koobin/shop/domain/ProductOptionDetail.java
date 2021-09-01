@@ -1,9 +1,11 @@
 package me.koobin.shop.domain;
 
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@Entity
+@Entity @NoArgsConstructor
 public class ProductOptionDetail {
     @Id
     @GeneratedValue
@@ -27,8 +29,14 @@ public class ProductOptionDetail {
     private Boolean quantityUnlimited;
     private Long quantity;
 
-    @OneToOne
-    @JoinColumn(name = "FILE_INFO_ID")
-    private FileInfo fileInfo;
-
+    public ProductOptionDetail(ProductOption productOption, ProductOptionValue productOptionValue, Long optionAdditionalPrice, Long maxPurchaseQuantity, Boolean maxUnlimited, SalesStatus salesStatus, Boolean quantityUnlimited, Long quantity) {
+        this.productOption = productOption;
+        this.productOptionValue = productOptionValue;
+        this.optionAdditionalPrice = optionAdditionalPrice;
+        this.maxPurchaseQuantity = maxPurchaseQuantity;
+        this.maxUnlimited = maxUnlimited;
+        this.salesStatus = salesStatus;
+        this.quantityUnlimited = quantityUnlimited;
+        this.quantity = quantity;
+    }
 }

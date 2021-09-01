@@ -1,9 +1,7 @@
 package me.koobin.shop.service;
 
 import lombok.RequiredArgsConstructor;
-import me.koobin.shop.api.controller.dto.CreateProductDTO;
-import me.koobin.shop.api.controller.dto.ModelSizeInfoDto;
-import me.koobin.shop.api.controller.dto.SizeChartDto;
+import me.koobin.shop.api.controller.dto.*;
 import me.koobin.shop.domain.*;
 import me.koobin.shop.entity.Brand;
 import me.koobin.shop.entity.Category;
@@ -29,6 +27,9 @@ public class ProductService {
     private final TagProductRepository tagProductRepository;
     private final IdentificationDetailCodeRepository identificationDetailCodeRepository;
     private final SearchFilterContentProductRepository searchFilterContentProductRepository;
+    private final ProductOptionRepository productOptionRepository;
+    private final ProductOptionDetailRepository productOptionDetailRepository;
+    private final ProductOptionValueRepository productOptionValueRepository;
 
 
     public void newProduct(CreateProductDTO createProductDTO) {
@@ -38,9 +39,30 @@ public class ProductService {
         insertSizeChart(product, createProductDTO.getSizeCharts());
         insertKeyWord(product, createProductDTO.getTags());
         processSearchFilter(product, createProductDTO);
-        // TODO 상품 옵션 등록
+        insertProductOption(product, createProductDTO);
+    }
 
+    private void insertProductOption(Product product, CreateProductDTO createProductDTO) {
+        List<OptionDTO> optionDTOs = createProductDTO.getOptionDTOs();
+        List<OptionDetailDTO> optionDetailDTOs = createProductDTO.getOptionDetailDTOs();
+        for (OptionDTO optionDTO : optionDTOs) {
+            ProductOption productOption = productOptionRepository.save(new ProductOption(product
+                    , optionDTO.getOptionName(), optionDTO.getRequire()));
 
+            for (OptionValueDTO optionValueDTO : optionDTO.getOptionValueDTOs()) {
+                ProductOptionValue productOptionValue = productOptionValueRepository.save(new ProductOptionValue(productOption, optionValueDTO.getValue()
+                        , optionValueDTO.getAdditionalAmount(), optionValueDTO.getSupplyPrice()));
+                for (OptionDetailDTO optionDetailDTO : optionDetailDTOs) {
+                    if (optionDTO.getIndex() == optionDetailDTO.getOptionIndex()
+                            && optionValueDTO.getIndex() == optionDetailDTO.getOptionValueIndex()){
+                        productOptionDetailRepository.save(new ProductOptionDetail(productOption, productOptionValue
+                                , optionDetailDTO.getOptionAdditionalPrice(), optionDetailDTO.getMaxPurchaseQuantity(),optionDetailDTO.getMaxUnlimited(), optionDetailDTO.getSalesStatus(), optionDetailDTO.getQuantityUnlimited(), optionDetailDTO.getQuantity()));
+
+                    }
+                }
+            }
+
+        }
 
     }
 

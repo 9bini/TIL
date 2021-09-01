@@ -3,7 +3,6 @@ package me.koobin.shop.domain;
 import javax.persistence.*;
 
 @Entity
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"IDENTIFICATION_CODE_ID", "value"}))
 public class IdentificationDetailCode {
     @Id
     @GeneratedValue
@@ -14,10 +13,5 @@ public class IdentificationDetailCode {
     private IdentificationCode identificationCode;
 
     @Column(nullable = false)
-    private String value;
-
-    @Column(nullable = false)
     private String label;
-
-
 }

@@ -1,10 +1,11 @@
 package me.koobin.shop.domain;
 
+import lombok.NoArgsConstructor;
 import me.koobin.shop.entity.Product;
 
 import javax.persistence.*;
 
-@Entity
+@Entity @NoArgsConstructor
 public class ProductOptionValue {
     @Id @GeneratedValue
     private Long id;
@@ -17,4 +18,10 @@ public class ProductOptionValue {
     private Long additionalAmount;
     private Long supplyPrice;
 
+    public ProductOptionValue(ProductOption productOption, String value, Long additionalAmount, Long supplyPrice) {
+        this.productOption = productOption;
+        this.value = value;
+        this.additionalAmount = additionalAmount;
+        this.supplyPrice = supplyPrice;
+    }
 }
