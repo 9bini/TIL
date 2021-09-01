@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+// TODO 엔티티 생성 오류 해결
 @Entity @NoArgsConstructor
 public class ProductOption {
     @Id @GeneratedValue
