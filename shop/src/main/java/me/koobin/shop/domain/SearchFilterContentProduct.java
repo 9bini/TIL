@@ -1,7 +1,6 @@
 package me.koobin.shop.domain;
 
 import lombok.NoArgsConstructor;
-import me.koobin.shop.entity.Product;
 
 import javax.persistence.*;
 
@@ -16,9 +15,9 @@ public class SearchFilterContentProduct {
 
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
-    private Product product;
+    private TagProduct.Product product;
 
-    public SearchFilterContentProduct(IdentificationDetailCode identificationDetailCode, Product product) {
+    public SearchFilterContentProduct(IdentificationDetailCode identificationDetailCode, TagProduct.Product product) {
         this.identificationDetailCode = identificationDetailCode;
         this.product = product;
     }

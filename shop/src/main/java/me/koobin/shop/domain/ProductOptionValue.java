@@ -1,7 +1,6 @@
 package me.koobin.shop.domain;
 
 import lombok.NoArgsConstructor;
-import me.koobin.shop.entity.Product;
 
 import javax.persistence.*;
 

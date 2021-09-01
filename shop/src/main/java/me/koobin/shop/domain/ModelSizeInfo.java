@@ -3,7 +3,6 @@ package me.koobin.shop.domain;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import me.koobin.shop.entity.Product;
 
 import javax.persistence.*;
 
@@ -17,7 +16,7 @@ public class ModelSizeInfo {
 
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
-    private Product product;
+    private TagProduct.Product product;
 
     @Enumerated
     private Gender gender;

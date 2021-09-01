@@ -1,7 +1,6 @@
 package me.koobin.shop.domain;
 
 import lombok.NoArgsConstructor;
-import me.koobin.shop.entity.Product;
 
 import javax.persistence.*;
 
@@ -12,11 +11,11 @@ public class ProductOption {
 
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
-    private Product product;
+    private TagProduct.Product product;
     private String name;
     private Boolean require;
 
-    public ProductOption(Product product, String name, Boolean require) {
+    public ProductOption(TagProduct.Product product, String name, Boolean require) {
         this.product = product;
         this.name = name;
         this.require = require;

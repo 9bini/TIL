@@ -1,7 +1,6 @@
 package me.koobin.shop.domain;
 
-import me.koobin.shop.entity.Brand;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BrandRepository extends JpaRepository<Brand, Long> {
+public interface BrandRepository extends JpaRepository<TagProduct.Brand, Long> {
 }

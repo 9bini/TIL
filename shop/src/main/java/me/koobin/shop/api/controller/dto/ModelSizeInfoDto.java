@@ -10,5 +10,6 @@ public class ModelSizeInfoDto {
     private Float height;
     private Float weight;
     private String wearingSize;
+    // TODO 핏 타입을 IdentificationCode 으로 변환하기
     private FitType fitType;
 }

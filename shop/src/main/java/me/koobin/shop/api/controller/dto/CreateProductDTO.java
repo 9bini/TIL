@@ -40,6 +40,7 @@ public class CreateProductDTO {
     private List<ModelSizeInfoDto> modelSizeInfoDtos = new ArrayList<>();
     private List<SizeChartDto> sizeCharts = new ArrayList<>();
 
+    // TODO 리스트에서 문자열로 변경 서버에서 문자열을 짤라서 처
     private List<String> tags;
 
     private List<Long> seasons = new ArrayList<>();
