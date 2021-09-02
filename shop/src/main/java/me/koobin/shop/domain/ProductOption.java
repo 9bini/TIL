@@ -4,7 +4,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-// TODO 엔티티 생성 오류 해결
 @Entity @NoArgsConstructor
 public class ProductOption {
     @Id @GeneratedValue
@@ -14,11 +13,12 @@ public class ProductOption {
     @JoinColumn(name = "PRODUCT_ID")
     private TagProduct.Product product;
     private String name;
-    private Boolean require;
 
-    public ProductOption(TagProduct.Product product, String name, Boolean require) {
+    private Boolean requireOption;
+
+    public ProductOption(TagProduct.Product product, String name, Boolean requireOption) {
         this.product = product;
         this.name = name;
-        this.require = require;
+        this.requireOption = requireOption;
     }
 }
