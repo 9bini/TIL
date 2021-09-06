@@ -11,12 +11,12 @@ public class ProductOption {
 
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
-    private TagProduct.Product product;
+    private Product product;
     private String name;
 
     private Boolean requireOption;
 
-    public ProductOption(TagProduct.Product product, String name, Boolean requireOption) {
+    public ProductOption(Product product, String name, Boolean requireOption) {
         this.product = product;
         this.name = name;
         this.requireOption = requireOption;

@@ -30,7 +30,7 @@ public class ProductService {
 
 
     public void newProduct(CreateProductDTO createProductDTO) {
-        TagProduct.Product product = getNewProduct(createProductDTO);
+        Product product = getNewProduct(createProductDTO);
         productRepository.save(product);
         insertModelSize(product, createProductDTO.getModelSizeInfoDtos());
         insertSizeChart(product, createProductDTO.getSizeCharts());
@@ -39,7 +39,7 @@ public class ProductService {
         insertProductOption(product, createProductDTO);
     }
 
-    private void insertProductOption(TagProduct.Product product, CreateProductDTO createProductDTO) {
+    private void insertProductOption(Product product, CreateProductDTO createProductDTO) {
         List<OptionDTO> optionDTOs = createProductDTO.getOptionDTOs();
         List<OptionDetailDTO> optionDetailDTOs = createProductDTO.getOptionDetailDTOs();
         for (OptionDTO optionDTO : optionDTOs) {
@@ -63,7 +63,7 @@ public class ProductService {
 
     }
 
-    private void processSearchFilter(TagProduct.Product product, CreateProductDTO createProductDTO) {
+    private void processSearchFilter(Product product, CreateProductDTO createProductDTO) {
         List<Long> colors = createProductDTO.getColors();
         callRepetitionInsertSearchFilterContentProduct(product, colors);
         List<Long> seasons = createProductDTO.getSeasons();
@@ -74,14 +74,14 @@ public class ProductService {
         callRepetitionInsertSearchFilterContentProduct(product, sizes);
     }
 
-    private void callRepetitionInsertSearchFilterContentProduct(TagProduct.Product product, List<Long> identificationDetailCodeIds) {
+    private void callRepetitionInsertSearchFilterContentProduct(Product product, List<Long> identificationDetailCodeIds) {
         for (Long identificationDetailCodeId : identificationDetailCodeIds) {
             IdentificationDetailCode identificationDetailCode = identificationDetailCodeRepository.findById(identificationDetailCodeId).orElseThrow(IllegalArgumentException::new);
             searchFilterContentProductRepository.save(new SearchFilterContentProduct(identificationDetailCode, product));
         }
     }
 
-    private List<Tag> insertKeyWord(TagProduct.Product product, List<String> tags) {
+    private List<Tag> insertKeyWord(Product product, List<String> tags) {
         List<Tag> result = new ArrayList<>();
         for (String tag : tags) {
             Tag tagEntity = getTag(tag);
@@ -95,7 +95,7 @@ public class ProductService {
         return !byTitle.isPresent() ? tagRepository.save(Tag.builder().title(tag).build()) : byTitle.orElseThrow(IllegalArgumentException::new);
     }
 
-    private List<SizeChart> insertSizeChart(TagProduct.Product product, List<SizeChartDto> sizeCharts) {
+    private List<SizeChart> insertSizeChart(Product product, List<SizeChartDto> sizeCharts) {
         List<SizeChart> result = new ArrayList<>();
         for (SizeChartDto sizeChartDto : sizeCharts) {
             SizeChart save = sizeChartRepository.save(SizeChart.builder()
@@ -115,7 +115,7 @@ public class ProductService {
         return result;
     }
 
-    private List<ModelSizeInfo> insertModelSize(TagProduct.Product product, List<ModelSizeInfoDto> modelSizeInfoDtos) {
+    private List<ModelSizeInfo> insertModelSize(Product product, List<ModelSizeInfoDto> modelSizeInfoDtos) {
         List<ModelSizeInfo> result = new ArrayList<>();
         for (ModelSizeInfoDto modelSizeInfoDto : modelSizeInfoDtos) {
             ModelSizeInfo save = modelSizeInfoRepository.save(ModelSizeInfo.builder()
@@ -132,11 +132,11 @@ public class ProductService {
 
     }
 
-    private TagProduct.Product getNewProduct(CreateProductDTO createProductDTO) {
-        TagRepository.Category category = categoryRepository
+    private Product getNewProduct(CreateProductDTO createProductDTO) {
+        Category category = categoryRepository
                 .findById(createProductDTO.getCategoryId())
                 .orElseThrow(NotFoundException::new);
-        TagProduct.Brand brand = brandRepository
+        Brand brand = brandRepository
                 .findById(createProductDTO.getBrand())
                 .orElseThrow(NotFoundException::new);
 
@@ -159,7 +159,7 @@ public class ProductService {
         Long sellingPrice = createProductDTO.getSellingPrice();
         Long discountRate = getDiscountRate(sellingPrice, netPrice);
 
-        return TagProduct.Product.newProduct(category,
+        return Product.newProduct(category,
                 brand,
                 productGender,
                 exposedProductName,

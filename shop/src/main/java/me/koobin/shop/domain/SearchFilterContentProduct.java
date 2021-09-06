@@ -15,9 +15,9 @@ public class SearchFilterContentProduct {
 
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
-    private TagProduct.Product product;
+    private Product product;
 
-    public SearchFilterContentProduct(IdentificationDetailCode identificationDetailCode, TagProduct.Product product) {
+    public SearchFilterContentProduct(IdentificationDetailCode identificationDetailCode, Product product) {
         this.identificationDetailCode = identificationDetailCode;
         this.product = product;
     }

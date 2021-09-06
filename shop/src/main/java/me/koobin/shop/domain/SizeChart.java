@@ -15,7 +15,7 @@ public class SizeChart {
 
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
-    private TagProduct.Product product;
+    private Product product;
 
     private Integer sizeName;
     private Integer totalLength;

@@ -16,7 +16,7 @@ public class ModelSizeInfo {
 
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
-    private TagProduct.Product product;
+    private Product product;
 
     @Enumerated
     private Gender gender;

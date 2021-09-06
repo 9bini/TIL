@@ -2,5 +2,5 @@ package me.koobin.shop.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface CategoryRepository extends JpaRepository<TagRepository.Category, Long> {
+public interface CategoryRepository extends JpaRepository<Category, Long> {
 }
