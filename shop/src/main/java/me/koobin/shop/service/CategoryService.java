@@ -7,16 +7,20 @@ import me.koobin.shop.domain.CategoryRepository;
 import me.koobin.shop.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CategoryService {
+
     private final CategoryRepository categoryRepository;
 
     public Category findById(Long id) {
         return categoryRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
-    public void create(CategoryCreateDto categoryCreateDto) {
+    public Category create(CategoryCreateDto categoryCreateDto) {
         Long parentId = categoryCreateDto.getParent();
         Category category = Category.builder()
                 .name(categoryCreateDto.getName())
@@ -25,7 +29,7 @@ public class CategoryService {
                 .sellingCommission(categoryCreateDto.getSellingCommission())
                 .disabled(false)
                 .build();
-        categoryRepository.save(category);
+        return categoryRepository.save(category);
     }
 
     private Category getParent(Long parentId) {

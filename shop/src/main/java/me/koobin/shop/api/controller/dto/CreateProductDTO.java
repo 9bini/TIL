@@ -8,11 +8,12 @@ import me.koobin.shop.domain.ProductGender;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
 
-@Data @Builder
-@NoArgsConstructor @AllArgsConstructor
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CreateProductDTO {
     @NotNull(message = "카테고리는 필수 입니다.")
     private Long categoryId;
@@ -37,16 +38,16 @@ public class CreateProductDTO {
     private String orderPrecautions;
     private String deliveryPrecautions;
     private String basicExplanation;
-    private List<ModelSizeInfoDto> modelSizeInfoDtos = new ArrayList<>();
-    private List<SizeChartDto> sizeCharts = new ArrayList<>();
+    private List<ModelSizeInfoDto> modelSizeInfoDtos;
+    private List<SizeChartDto> sizeCharts;
 
     // TODO 리스트에서 문자열로 변경 서버에서 문자열을 짤라서 처리
     private List<String> tags;
 
-    private List<Long> seasons = new ArrayList<>();
-    private List<Long> forms = new ArrayList<>();
-    private List<Long> colors = new ArrayList<>();
-    private List<Long> sizes = new ArrayList<>();
+    private List<Long> seasons;
+    private List<Long> forms;
+    private List<Long> colors;
+    private List<Long> sizes;
 
     private String productName;
     private String manufacturer;
@@ -58,8 +59,8 @@ public class CreateProductDTO {
     @NotNull(message = "판매가는 필수 입니다.")
     private Long sellingPrice;
 
-    private List<OptionDTO> optionDTOs = new ArrayList<>();
-    private List<OptionDetailDTO> optionDetailDTOs = new ArrayList<>();
+    private List<OptionDTO> optionDTOs;
+    private List<OptionDetailDTO> optionDetailDTOs;
 
 
 }

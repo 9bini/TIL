@@ -2,6 +2,7 @@ package me.koobin.shop.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import me.koobin.shop.converter.BooleanToYNConverter;
 import me.koobin.shop.embedded.BaseTimeEntity;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Builder @Getter
 public class Category {
 
     @Id
