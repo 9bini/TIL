@@ -1,29 +1,41 @@
 package com.fastcampus.pickingtdd.service;
 
 import com.fastcampus.pickingtdd.entity.Order;
+import com.fastcampus.pickingtdd.entity.OrderDetail;
 import com.fastcampus.pickingtdd.entity.OrderStateEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class OrderServiceTest {
 
-    @Autowired
-    OrderService orderService;
+    @InjectMocks
+    OrderService orderService = new OrderServiceImpl();
+
+    @Mock
+    OrderDetailService orderDetailService;
 
     Order orderSuccess;
     Order orderFail;
 
     @BeforeEach
     void orderInit(){
+        OrderDetail orderDetail =new OrderDetail();
         orderSuccess = new Order();
         orderSuccess.setOrderId(1L);
         orderSuccess.setState(OrderStateEnum.ORDERED);
+        orderSuccess.setOrderDetails(List.of(orderDetail));
 
         orderFail = new Order();
         orderFail.setOrderId(null);
@@ -65,5 +77,12 @@ public class OrderServiceTest {
             orderService.makeOrder(orderFail);
         });
         Assertions.assertEquals("order validation fail", exception.getMessage());
+    }
+
+    @Test
+    public void changeOrderState(){
+        orderService.changeOrderState(orderSuccess, OrderStateEnum.LISTMADED);
+
+        Assertions.assertEquals(OrderStateEnum.LISTMADED, orderSuccess.getState());
     }
 }

@@ -1,15 +1,18 @@
 Picking System
-
-
 주문
 피킹
 피킹피스트
 sku
 주문 -> 피킹리스트 -> 피킹 -> 피킹 완료
 ------------ TO-DO-----------------
-Order.state => enum
+피킹리스트 생성
+피킹리스트 상태 enum 생성
 
 
 ------------- DONE ----------------
 ORDER생성
 Order 검증
+Order.state => enum
+OrderDetail validation 추가
+OrderDetail 생성
+Order validation 에 OrderDetail  검증 추가
