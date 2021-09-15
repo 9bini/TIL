@@ -1,33 +1,32 @@
 package com.fastcampus.pickingtdd.service;
 
-import com.fastcampus.pickingtdd.entity.Order;
-import com.fastcampus.pickingtdd.entity.OrderDetail;
-import com.fastcampus.pickingtdd.entity.OrderStateEnum;
-import com.fastcampus.pickingtdd.entity.PickingList;
+import com.fastcampus.pickingtdd.entity.*;
 import org.assertj.core.util.Maps;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Collections;
 import java.util.List;
 
-@SpringBootTest
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+// @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 public class PickingListServiceTest {
 
     @InjectMocks
-    PickingListService pickingListService= new PickingListServiceImpl();
+    PickingListService pickingListService = new PickingListServiceImpl();
 
     @Mock
     OrderService orderService;
+
+    @Spy
+    PickerService pickerService = new PickerServiceImpl();
 
     Order order;
 
@@ -43,23 +42,36 @@ public class PickingListServiceTest {
     }
 
     @Test
-    public void make() {
+    void make() {
         // mock
 
         PickingList assertPickings = new PickingList();
-        assertPickings.setOrderId(1L);
+        assertPickings.setOrder(order);
         assertPickings.setSkuAmountMap(
                 Maps.newHashMap(
                         order.getOrderDetails().get(0).getSku(),
                         order.getOrderDetails().get(0).getAmount()));
-        assertPickings.setState("NOTASSINGED");
+        assertPickings.setState(PickingStateEnum.NOT_ASSIGNED);
         assertPickings.setPicker(null);
 
         PickingList make = pickingListService.makePickingList(order);
 
-        Assertions.assertEquals(1L, make.getOrderId());
-        Assertions.assertEquals("NOTASSINGED", make.getState());
-        Assertions.assertEquals(assertPickings.getSkuAmountMap().get(order.getOrderDetails().get(0).getSku()),
+        assertEquals(1L, make.getOrder().getOrderId());
+        assertEquals(PickingStateEnum.NOT_ASSIGNED, make.getState());
+        assertEquals(assertPickings.getSkuAmountMap().get(order.getOrderDetails().get(0).getSku()),
                 make.getSkuAmountMap().get(order.getOrderDetails().get(0).getSku()));
     }
+
+    @Test
+    void assignPicker() {
+        PickingList pickingList = this.pickingListService.makePickingList(order);
+        Picker picker = new Picker();
+
+        PickingList assignPickingList = pickingListService.assignPicker(pickingList, picker);
+
+        assertEquals(picker, assignPickingList.getPicker());
+        assertEquals(PickingStateEnum.ASSIGNED, assignPickingList.getState());
+        assertNotNull(assignPickingList.getPicker().getAssignedPickList());
+    }
+
 }

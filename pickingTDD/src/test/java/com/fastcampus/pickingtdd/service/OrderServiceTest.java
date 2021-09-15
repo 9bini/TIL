@@ -16,7 +16,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-@SpringBootTest
+
 @ExtendWith(MockitoExtension.class)
 public class OrderServiceTest {
 

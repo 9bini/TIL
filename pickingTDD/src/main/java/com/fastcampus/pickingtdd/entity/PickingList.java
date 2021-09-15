@@ -10,8 +10,9 @@ import java.util.Map;
 public class PickingList {
 
     private Long id;
-    private Long orderId;
+    private Order order;
     private Map<Sku, Integer> skuAmountMap;
-    private String state;
+    private Map<Sku, Integer> pickedMap;
+    private PickingStateEnum state;
     private Picker picker;
 }
