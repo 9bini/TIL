@@ -2,14 +2,15 @@ package com.fastcampus.pickingtdd.service;
 
 import com.fastcampus.pickingtdd.entity.*;
 import org.assertj.core.util.Maps;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @SpringBootTest
 public class PickingServiceTest {
@@ -25,7 +26,7 @@ public class PickingServiceTest {
 
 
     @BeforeEach
-    void init(){
+    void init() {
         orderDetail = new OrderDetail();
         orderDetail.setId(1L);
         orderDetail.setOrderId(1L);
@@ -51,7 +52,7 @@ public class PickingServiceTest {
         pickingList.getSkuAmountMap().put(orderDetail2.getSku(), orderDetail2.getAmount());
 
         pickingList.setPickedMap(Maps.newHashMap(orderDetail.getSku(), 0));
-        pickingList.getSkuAmountMap().put(orderDetail2.getSku(), 0);
+        pickingList.getPickedMap().put(orderDetail2.getSku(), 0);
 
         picker = new Picker();
         picker.setId(1L);
@@ -61,15 +62,44 @@ public class PickingServiceTest {
         pickingList.setPicker(picker);
 
 
-
-
     }
 
     @Test
-    void picking(){
-        pickingService.pick(pickingList, orderDetail.getSku());
-        Assertions.assertEquals(PickingStateEnum.PROGRESS, pickingList.getState());
-        Assertions.assertEquals(PickerStateEnum.ASSIGNED, picker.getState());
-        Assertions.assertEquals(1, pickingList.getPickedMap().get(orderDetail.getSku()));
+    void picking_one_success() {
+        try {
+            pickingService.pick(pickingList, orderDetail.getSku());
+        } catch (Exception e) {
+            fail("should not exception");
+        }
+
+        assertEquals(PickingStateEnum.PROGRESS, pickingList.getState());
+        assertEquals(PickerStateEnum.PROCESS, picker.getState());
+        assertEquals(1, pickingList.getPickedMap().get(orderDetail.getSku()));
+    }
+
+    @Test
+    void pick_DOEN_Success() {
+        try {
+            for (int i = 0; i < 10; i++) {
+                pickingService.pick(pickingList, orderDetail.getSku());
+                pickingService.pick(pickingList, orderDetail2.getSku());
+            }
+        } catch (Exception e) {
+            fail("should not exception");
+        }
+
+        assertEquals(PickingStateEnum.DONE, pickingList.getState());
+        assertEquals(PickerStateEnum.DONE, pickingList.getPicker().getState());
+    }
+
+    @Test
+    void pick_Much() {
+        try {
+            for (int i = 0; i < 12; i++) {
+                pickingService.pick(pickingList, orderDetail.getSku());
+            }
+        } catch (Exception e) {
+            assertEquals("to much sku", e.getMessage());
+        }
     }
 }
