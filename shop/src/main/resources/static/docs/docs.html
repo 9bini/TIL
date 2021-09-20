@@ -446,13 +446,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#api">1. Docs Api</a>
-<ul class="sectlevel4">
-<li><a href="#_end_point">End Point</a></li>
-<li><a href="#_path_parameters">Path Parameters</a></li>
-<li><a href="#_response_data_fields">Response Data Fields</a></li>
-</ul>
-</li>
+<li><a href="#api">1. Docs Api</a></li>
 </ul>
 </div>
 </div>
@@ -460,128 +454,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="api"><a class="anchor" href="#api"></a><a class="link" href="#api">1. Docs Api</a></h2>
 <div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">$ curl 'http://docs.api.com/api/v1/docs/1' -i -X GET</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/v1/docs/1 HTTP/1.1
-Host: docs.api.com</code></pre>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_end_point"><a class="anchor" href="#_end_point"></a><a class="link" href="#_end_point">End Point</a></h5>
 <div class="paragraph">
-<p>/api/v1/docs/{id}</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_path_parameters"><a class="anchor" href="#_path_parameters"></a><a class="link" href="#_path_parameters">Path Parameters</a></h5>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">파라미터</th>
-<th class="tableblock halign-left valign-top">양식</th>
-<th class="tableblock halign-left valign-top">설명</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">문서 아이디</p></td>
-</tr>
-</tbody>
-</table>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
-Content-Type: application/json
-Content-Length: 246
-
-{
-  "resultCode" : "OK",
-  "data" : {
-    "id" : 1,
-    "account" : "account",
-    "email" : "email@email.com",
-    "phoneNumber" : "010-000-000",
-    "createdDate" : "2021-08-08T13:24:13.842",
-    "modifiedDate" : "2021-08-08T13:24:13.842"
-  }
-}</code></pre>
-</div>
-</div>
-</div>
-<div class="sect4">
-<h5 id="_response_data_fields"><a class="anchor" href="#_response_data_fields"></a><a class="link" href="#_response_data_fields">Response Data Fields</a></h5>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">필드명</th>
-<th class="tableblock halign-left valign-top">타입</th>
-<th class="tableblock halign-left valign-top">양식</th>
-<th class="tableblock halign-left valign-top">설명</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>resultCode</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">응답코드</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.id</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">아이디</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.account</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">계정</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.email</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">이메일</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.phoneNumber</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">전화번호</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.createdDate</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">yyyy-MM-dd</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">생성시간</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.modifiedDate</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">yyyy-MM-dd</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">수정일자</p></td>
-</tr>
-</tbody>
-</table>
+<p>Unresolved directive in docs.adoc - include::/Users/gutaegyun/code/TIL/shop/build/generated-snippets/docs/curl-request.adoc[]
+Unresolved directive in docs.adoc - include::/Users/gutaegyun/code/TIL/shop/build/generated-snippets/docs/http-request.adoc[]
+Unresolved directive in docs.adoc - include::/Users/gutaegyun/code/TIL/shop/build/generated-snippets/docs/path-parameters.adoc[]
+Unresolved directive in docs.adoc - include::/Users/gutaegyun/code/TIL/shop/build/generated-snippets/docs/http-response.adoc[]
+Unresolved directive in docs.adoc - include::/Users/gutaegyun/code/TIL/shop/build/generated-snippets/docs/response-fields.adoc[]</p>
 </div>
 </div>
 </div>

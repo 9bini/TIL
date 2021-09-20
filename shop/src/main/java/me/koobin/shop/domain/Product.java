@@ -3,7 +3,6 @@ package me.koobin.shop.domain;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
-import me.koobin.shop.embedded.BaseTimeEntity;
 
 import javax.persistence.*;
 
@@ -58,10 +57,6 @@ public class Product {
     private Long discountRate;
     @Column(nullable = false)
     private Long mileage;
-
-
-    @Embedded
-    private BaseTimeEntity baseTimeEntity;
 
 
     public static Product newProduct(Category category, Brand brand, ProductGender productGender, String exposedProductName

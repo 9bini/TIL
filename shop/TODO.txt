@@ -1,0 +1,8 @@
+
+========== TODO
+
+Category 생성 api용 test 작성
+
+
+========== DONE
+Category 생성 api용 httpclient 작성

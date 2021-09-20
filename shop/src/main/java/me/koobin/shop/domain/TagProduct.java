@@ -1,9 +1,6 @@
 package me.koobin.shop.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.NoArgsConstructor;
-import me.koobin.shop.embedded.BaseTimeEntity;
 
 import javax.persistence.*;
 

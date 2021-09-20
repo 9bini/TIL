@@ -1,7 +1,5 @@
 package me.koobin.shop.domain;
 
-import me.koobin.shop.embedded.BaseTimeEntity;
-
 import javax.persistence.*;
 
 @Entity
@@ -14,6 +12,5 @@ public class FileInfo {
     @Enumerated(EnumType.STRING)
     private ContentType contentType;
     private String deleteFlag;
-    @Embedded
-    private BaseTimeEntity baseTimeEntity;
+
 }

@@ -4,7 +4,6 @@ import lombok.Data;
 import me.koobin.shop.domain.SalesStatus;
 
 import javax.validation.constraints.NotNull;
-import java.util.Map;
 
 @Data
 public class OptionDetailDTO {

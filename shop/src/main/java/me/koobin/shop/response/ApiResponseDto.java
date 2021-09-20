@@ -29,7 +29,7 @@ public class ApiResponseDto<T> {
         this.message = status.getMessage();
     }
 
-    public static <T> ApiResponseDto<T> createOK(T data) {
+    public static <T> ApiResponseDto<T> OK(T data) {
         return new ApiResponseDto<>(ApiResponseCode.OK, data);
     }
 }
