@@ -9,3 +9,7 @@ Content-Type: application/json
   "parent": ""
 }
 
+###
+GET {{host}}/category/v1/1
+Accept: application/json
+Content-Type: application/json

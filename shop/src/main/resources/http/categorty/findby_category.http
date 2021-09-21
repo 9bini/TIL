@@ -1,8 +1,0 @@
-###
-GET http://localhost:8080/category/v1/1
-Accept: application/json
-Content-Type: application/json
-
-
-
-
