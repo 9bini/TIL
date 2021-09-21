@@ -11,5 +11,5 @@ public class CategoryCreateDto {
     @NotBlank
     private String name;
     // TODO 부모 변수명 변경
-    private Long parent;
+    private Long parentId;
 }

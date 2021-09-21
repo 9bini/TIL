@@ -20,45 +20,39 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    public CategoryFindDto findById(Long id) {
-        Category category = categoryRepository.findById(id).orElseThrow(NotFoundException::new);
+    public CategoryFindDto findById(Long categoryId) {
+        Category category = categoryRepository.findById(categoryId).orElseThrow(NotFoundException::new);
         return CategoryFindDto.of(category);
     }
 
     public CategoryFindDto create(CategoryCreateDto categoryCreateDto) {
-        Long parentId = categoryCreateDto.getParent();
+        Long parentId = categoryCreateDto.getParentId();
         Category category = Category.builder()
                 .name(categoryCreateDto.getName())
                 .parent(getParent(parentId))
                 .build();
-        Category save = categoryRepository.save(category);
-
-        return CategoryFindDto.of(save);
+        return CategoryFindDto.of(categoryRepository.save(category));
     }
 
     private Category getParent(Long parentId) {
-        Category parent = null;
-        if (parentId != null) {
-            parent = categoryRepository.findById(parentId).orElseThrow(NotFoundException::new);
-        }
-        return parent;
+        if (parentId == null)return null;
+        return categoryRepository.findById(parentId).orElseThrow(NotFoundException::new);
     }
 
     public CategoryFindDto update(CategoryUpdateDto categoryUpdateDto) {
         Category category = categoryRepository.findById(categoryUpdateDto.getId()).orElseThrow(NotFoundException::new);
-        Category parent = null;
-        if (categoryUpdateDto.getParentId() != null
-                && !category.getParent().getId().equals(categoryUpdateDto.getParentId())) {
-            parent = categoryRepository.findById(categoryUpdateDto.getParentId()).orElseThrow(NotFoundException::new);
-        }
+        Category parent = getParent(categoryUpdateDto.getParentId());
+
         category.update(categoryUpdateDto.getName(), parent);
+
         return CategoryFindDto.of(category);
     }
 
     public List<CategoryFindDto> findAll() {
-        List<CategoryFindDto> result;
-        List<Category> categories = categoryRepository.findAll();
-        result = categories.stream().map(CategoryFindDto::of).collect(Collectors.toList());
-        return result;
+        return  categoryRepository.findAll()
+                .stream()
+                .map(CategoryFindDto::of)
+                .collect(Collectors.toList());
+
     }
 }
