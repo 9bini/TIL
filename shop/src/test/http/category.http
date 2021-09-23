@@ -1,15 +1,19 @@
-###
+### 카테고리 생성
 POST http://localhost:8080/category/v1
 Accept: application/json
 Content-Type: application/json
 
-
 {
   "name": "카테고리 이름 ",
-  "parent": ""
+  "parentId": 1
 }
 
 ###
 GET {{host}}/category/v1/1
+Accept: application/json
+Content-Type: application/json
+
+###
+GET {{host}}/category/v1
 Accept: application/json
 Content-Type: application/json

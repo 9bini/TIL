@@ -3,7 +3,6 @@ package me.koobin.shop.service;
 import lombok.RequiredArgsConstructor;
 import me.koobin.shop.api.controller.dto.*;
 import me.koobin.shop.domain.*;
-import me.koobin.shop.exception.NotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -135,10 +134,10 @@ public class ProductService {
     private Product getNewProduct(CreateProductDTO createProductDTO) {
         Category category = categoryRepository
                 .findById(createProductDTO.getCategoryId())
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(IllegalArgumentException::new);
         Brand brand = brandRepository
                 .findById(createProductDTO.getBrand())
-                .orElseThrow(NotFoundException::new);
+                .orElseThrow(IllegalArgumentException::new);
 
         ProductGender productGender = createProductDTO.getProductGender();
 

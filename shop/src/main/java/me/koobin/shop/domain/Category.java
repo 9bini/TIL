@@ -4,6 +4,7 @@ import lombok.*;
 import me.koobin.shop.utils.BaseTimeEntity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -15,8 +16,10 @@ public class Category  extends BaseTimeEntity {
     @GeneratedValue
     private Long id;
 
+    @NotBlank
     @Column(nullable = false)
     private String name;
+
 
     @ManyToOne
     @JoinColumn(name = "CATEGORY_ID")
