@@ -43,4 +43,10 @@ public class CategoryApiController {
     public ApiResponseDto<List<CategoryAllDto>> getAll(){
         return ApiResponseDto.OK(categoryService.getAll());
     }
+
+
+    @GetMapping("/current-path/{currentCategoryId}")
+    public ApiResponseDto<String> currentPath(@PathVariable Long currentCategoryId){
+        return ApiResponseDto.OK(categoryService.getCurrentPath(currentCategoryId));
+    }
 }

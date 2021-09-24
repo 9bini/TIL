@@ -27,14 +27,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = {CategoryApiController.class})
-
 class CategoryApiControllerTest extends ApiTest {
 
     @MockBean
     CategoryService categoryService;
 
     @Test
-    void create() throws Exception {
+    void create_success() throws Exception {
         given(categoryService.create(any(CategoryCreateDto.class)))
                 .willReturn(CategoryFindDto.builder()
                         .id(10L)
@@ -45,13 +44,13 @@ class CategoryApiControllerTest extends ApiTest {
 
         Request request = new Request();
         request.name = "카테고리";
-        //request.parent = null;
 
         mockMvc.perform(post("/category/v1")
                         .content(objectMapper.writeValueAsString(request))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                 ).andExpect(status().isOk())
+                .andDo(print())
                 .andDo(document("category-create"
                         , getDocumentRequest()
                         , getDocumentResponse()
@@ -67,11 +66,34 @@ class CategoryApiControllerTest extends ApiTest {
                                 fieldWithPath("parent").type(JsonFieldType.NUMBER).description("카테고리 부모 id")
                         )))
                 .andReturn();
-
     }
 
     @Test
-    void findBy() throws Exception {
+    void create_fail() throws Exception {
+        given(categoryService.create(any(CategoryCreateDto.class)))
+                .willReturn(CategoryFindDto.builder()
+                        .id(10L)
+                        .name("카테고리 아이디")
+                        .parent(1L)
+                        .build());
+
+
+        Request request = new Request();
+        request.name = "";
+
+        // todo: 잘못된 요청에 결과 문서화
+
+        mockMvc.perform(post("/category/v1")
+                        .content(objectMapper.writeValueAsString(request))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                ).andExpect(status().isBadRequest())
+                .andDo(print())
+                .andReturn();
+    }
+
+    @Test
+    void findBy_success() throws Exception {
         given(categoryService.findById(1L))
                 .willReturn(CategoryFindDto
                         .builder()
@@ -90,7 +112,6 @@ class CategoryApiControllerTest extends ApiTest {
                         , getDocumentResponse()
                         , pathParameters(
                                 parameterWithName("id").description("카테고리 아이디")
-
                         ), responseFields(
                                 beneathPath("data").withSubsectionId("data"),
                                 fieldWithPath("id").type(JsonFieldType.NUMBER).description("아이디"),
@@ -98,12 +119,6 @@ class CategoryApiControllerTest extends ApiTest {
                                 fieldWithPath("parent").type(JsonFieldType.NUMBER).description("카테고리 부모 id").optional()
                         )
                 ));
-
-    }
-
-    @Test
-    void update(){
-
     }
 
     @Getter

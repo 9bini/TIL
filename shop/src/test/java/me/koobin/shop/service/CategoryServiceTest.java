@@ -1,5 +1,6 @@
 package me.koobin.shop.service;
 
+import me.koobin.shop.api.controller.dto.CategoryAllDto;
 import me.koobin.shop.api.controller.dto.CategoryCreateDto;
 import me.koobin.shop.api.controller.dto.CategoryFindDto;
 import me.koobin.shop.api.controller.dto.CategoryUpdateDto;
@@ -108,7 +109,7 @@ class CategoryServiceTest {
     }
 
     @Test
-    void getChild_size_0_success() {
+    void getChild_sizeZero_success() {
         CategoryFindDto parent1 = categoryService.create(getCategory("부모 카테고리 1", null));
         for (int i = 0; i < 10; i++)
             categoryService.create(getCategory("부모1의 자식 " + (i + 1), parent1.getId()));
@@ -118,7 +119,7 @@ class CategoryServiceTest {
 
 
     @Test
-    void getChild_parent_isnull_success() {
+    void getChild_isNullParent_success() {
         int expectedSize = 2;
         for (int i = 0; i < expectedSize; i++) categoryService.create(getCategory("카테고리" + (i + 1), null));
 
@@ -126,9 +127,21 @@ class CategoryServiceTest {
         assertEquals(expectedSize, child.size());
     }
 
+    @Test
+    void getAll_success() {
+        int expectedSize = 100;
+        for (int i = 0; i < expectedSize; i++) categoryService.create(getCategory("카테고리" + (i + 1), null));
+
+        List<CategoryAllDto> all = categoryService.getAll();
+        assertEquals(expectedSize, all.size());
+    }
+
+
 
     private CategoryCreateDto getCategory(String s, Long o) {
         return new CategoryCreateDto(s, o);
     }
+
+
 
 }

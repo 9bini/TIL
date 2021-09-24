@@ -60,6 +60,8 @@ public class CategoryService {
     public List<CategoryAllDto> getAll() {
         List<CategoryAllDto> result = new ArrayList<>();
         List<Category> allCategory = categoryRepository.findAll(Sort.by("parent"));
+
+/*
         for (Category category : allCategory) {
             if (category.getParent() == null) {
                 result.add(CategoryAllDto.of(category));
@@ -71,6 +73,18 @@ public class CategoryService {
                     break;
                 }
             }
+        }
+*/
+
+        return result;
+    }
+
+    public String getCurrentPath(Long currentCategoryId) {
+        Category category = categoryRepository.findById(currentCategoryId).orElseThrow(IllegalArgumentException::new);
+        String result = "";
+        while (category != null){
+            result += category.getName();
+            category = category.getParent();
         }
 
         return result;
