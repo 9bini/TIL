@@ -1,0 +1,18 @@
+### 단일 조회
+GET {{host}}/brand/13
+Accept: application/json
+Content-Type: application/json
+
+### 전체 조회
+GET {{host}}/brand
+Accept: application/json
+Content-Type: application/json
+
+### 단일 삽입
+POST {{host}}/brand
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "브랜드명"
+}
