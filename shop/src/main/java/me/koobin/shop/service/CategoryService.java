@@ -7,14 +7,10 @@ import me.koobin.shop.api.controller.dto.CategoryFindDto;
 import me.koobin.shop.api.controller.dto.CategoryUpdateDto;
 import me.koobin.shop.domain.Category;
 import me.koobin.shop.domain.CategoryRepository;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.annotation.Validated;
 
 import javax.transaction.Transactional;
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,7 +35,7 @@ public class CategoryService {
     }
 
     private Category getParent(Long parentId) {
-        if (parentId == null)return null;
+        if (parentId == null) return null;
         return categoryRepository.findById(parentId).orElseThrow(IllegalArgumentException::new);
     }
 
@@ -52,41 +48,55 @@ public class CategoryService {
         return CategoryFindDto.of(category);
     }
 
-    public List<CategoryFindDto> getChildren(Long parentID) {
-        List<Category> children = categoryRepository.findByParent_Id(parentID);
-        return  children.stream().map(CategoryFindDto::of).collect(Collectors.toList());
+    public List<CategoryFindDto> getDirectChildren(Long parentID) {
+        List<Category> children = categoryRepository.findById(parentID)
+                .orElseThrow(IllegalArgumentException::new)
+                .getChildren();
+        return children.stream().map(CategoryFindDto::of).collect(Collectors.toList());
     }
 
     public List<CategoryAllDto> getAll() {
-        List<CategoryAllDto> result = new ArrayList<>();
-        List<Category> allCategory = categoryRepository.findAll(Sort.by("parent"));
 
-/*
-        for (Category category : allCategory) {
-            if (category.getParent() == null) {
-                result.add(CategoryAllDto.of(category));
-                continue;
-            }
-            for (CategoryAllDto categoryAllDto : result) {
-                if(category.getParent().getId().equals(categoryAllDto.getId())){
-                    categoryAllDto.getChildren().add(CategoryAllDto.of(category));
-                    break;
-                }
+        List<CategoryAllDto> result = new ArrayList<>(); // 결과 값
+
+        // 레벨 1 카테고리들을 Q에 삽입
+        Queue<Category> targetQ = new LinkedList<>(categoryRepository.findByParentIsNull());
+        // 부모를 붙여 넣는 용도
+        Queue<CategoryAllDto> pasteParent = new LinkedList<>();
+
+        while (!targetQ.isEmpty()) {// Q가 빌때 까지 반복
+            Category target = targetQ.poll();
+            CategoryAllDto targetDto = getTargetDto(pasteParent, CategoryAllDto.of(target))
+                    .orElseThrow(IllegalArgumentException::new);
+
+            if (target.getParent() == null) result.add(targetDto);
+
+            for (Category child : target.getChildren()) {
+                targetQ.add(child);
+                CategoryAllDto childDto = CategoryAllDto.of(child);
+                targetDto.getChildren().add(childDto);
+                pasteParent.add(childDto);
+
             }
         }
-*/
+
 
         return result;
     }
 
+    private Optional<CategoryAllDto> getTargetDto(Queue<CategoryAllDto> pasteParent, CategoryAllDto target) {
+        return Optional.ofNullable(target.getParentId() == null ?  target: pasteParent.poll());
+    }
+
+
     public String getCurrentPath(Long currentCategoryId) {
         Category category = categoryRepository.findById(currentCategoryId).orElseThrow(IllegalArgumentException::new);
-        String result = "";
-        while (category != null){
-            result += category.getName();
+        StringBuilder result = new StringBuilder();
+        while (category != null) {
+            result.insert(0, category.getName() + " > ");
             category = category.getParent();
         }
-
-        return result;
+        result.delete(result.length()-3, result.length());
+        return result.toString();
     }
 }

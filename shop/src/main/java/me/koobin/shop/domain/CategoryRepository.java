@@ -7,5 +7,5 @@ import java.util.List;
 
 @Transactional(readOnly = true)
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    List<Category> findByParent_Id(Long parentID);
+    List<Category> findByParentIsNull();
 }

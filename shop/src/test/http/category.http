@@ -1,3 +1,8 @@
+### 하나의 카테고리 조회
+GET {{host}}/category/v1/1
+Accept: application/json
+Content-Type: application/json
+
 ### 카테고리 생성
 POST http://localhost:8080/category/v1
 Accept: application/json
@@ -5,15 +10,32 @@ Content-Type: application/json
 
 {
   "name": "카테고리 이름 ",
-  "parentId": 1
+  "parentId": 11
 }
 
-###
-GET {{host}}/category/v1/1
+### 카테고리 데이터 수정
+PUT http://localhost:8080/category/v1
 Accept: application/json
 Content-Type: application/json
 
-###
+{
+  "id": "1",
+  "name": "수정한 카테고리 이름"
+}
+
+### 하위 카테고리 조회
+GET http://localhost:8080/category/v1/1/direct-children
+Accept: application/json
+Content-Type: application/json
+
+
+
+### 카테고리 전체 조회
 GET {{host}}/category/v1
+Accept: application/json
+Content-Type: application/json
+
+### 현재 카테고리 경로 조회
+GET {{host}}/category/v1/current-path/11
 Accept: application/json
 Content-Type: application/json

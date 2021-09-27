@@ -5,12 +5,14 @@ import me.koobin.shop.utils.BaseTimeEntity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Builder @Getter
-public class Category  extends BaseTimeEntity {
+@Getter
+public class Category extends BaseTimeEntity {
 
     @Id
     @GeneratedValue
@@ -21,11 +23,21 @@ public class Category  extends BaseTimeEntity {
     private String name;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CATEGORY_ID")
     private Category parent;
 
-    public void update(String name, Category parent){
+    @Builder
+    public Category(String name, Category parent) {
+        this.name = name;
+        this.parent = parent;
+        if (parent != null)parent.getChildren().add(this);
+    }
+
+    @OneToMany(mappedBy = "parent")
+    private List<Category> children = new ArrayList<>();
+
+    public void update(String name, Category parent) {
         this.name = name;
         this.parent = parent;
     }

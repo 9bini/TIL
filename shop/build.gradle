@@ -50,11 +50,15 @@ dependencies {
     annotationProcessor group: 'com.querydsl', name: 'querydsl-apt', version: querydslVersion, classifier: 'jpa'
     annotationProcessor("jakarta.persistence:jakarta.persistence-api")
     annotationProcessor("jakarta.annotation:jakarta.annotation-api")
-
+    // CODE
     testCompileOnly 'org.projectlombok:lombok:1.18.20'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
-    // END
+    // TEST DB
     testImplementation 'com.h2database:h2:1.4.200'
+
+    // AUX TOOLS
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
+
 
 }
 

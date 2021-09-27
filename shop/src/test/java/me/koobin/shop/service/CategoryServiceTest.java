@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Validation;
@@ -104,44 +105,66 @@ class CategoryServiceTest {
         for (int i = 0; i < expectedSize; i++)
             categoryService.create(getCategory("부모2의 자식 " + (i + 1), parent2.getId()));
 
-        List<CategoryFindDto> child = categoryService.getChildren(parent1.getId());
+        List<CategoryFindDto> child = categoryService.getDirectChildren(parent1.getId());
         assertEquals(expectedSize, child.size());
     }
 
     @Test
-    void getChild_sizeZero_success() {
+    void getChild_sizeZero_fail() {
         CategoryFindDto parent1 = categoryService.create(getCategory("부모 카테고리 1", null));
         for (int i = 0; i < 10; i++)
             categoryService.create(getCategory("부모1의 자식 " + (i + 1), parent1.getId()));
-        List<CategoryFindDto> child = categoryService.getChildren(-1L);
-        assertEquals(0, child.size());
+        assertThrows(IllegalArgumentException.class, () -> categoryService.getDirectChildren(-1L));
+
     }
 
 
     @Test
-    void getChild_isNullParent_success() {
+    void getChild_ParentisNull_fail() {
         int expectedSize = 2;
         for (int i = 0; i < expectedSize; i++) categoryService.create(getCategory("카테고리" + (i + 1), null));
 
-        List<CategoryFindDto> child = categoryService.getChildren(null);
-        assertEquals(expectedSize, child.size());
+        assertThrows(InvalidDataAccessApiUsageException.class, () -> categoryService.getDirectChildren(null));
     }
 
     @Test
     void getAll_success() {
-        int expectedSize = 100;
-        for (int i = 0; i < expectedSize; i++) categoryService.create(getCategory("카테고리" + (i + 1), null));
+        int testCount = 6;
+        Category category = null;
+        for (int i = 0; i < testCount; i++) {
+            category = categoryRepository.save(Category.builder()
+                    .parent(category)
+                    .name(String.valueOf(i))
+                    .build());
+        }
+
 
         List<CategoryAllDto> all = categoryService.getAll();
-        assertEquals(expectedSize, all.size());
+        CategoryAllDto categoryAllDto = all.get(0);
+        for (int i = 0; i < testCount / 2; i++) {
+            categoryAllDto = categoryAllDto.getChildren().get(0);
+        }
+        assertEquals(String.valueOf(5), category.getName());
+    }
+
+    @Test
+    void getCurrentPath_success(){
+        int testCount = 6;
+        Category testCategory = null;
+        for (int i = 0; i < testCount; i++) {
+            testCategory = categoryRepository.save(Category.builder()
+                    .parent(testCategory)
+                    .name(String.valueOf(i))
+                    .build());
+        }
+        String currentPath = categoryService.getCurrentPath(testCategory.getId());
+        assertEquals("0 > 1 > 2 > 3 > 4 > 5", currentPath);
     }
 
 
-
-    private CategoryCreateDto getCategory(String s, Long o) {
-        return new CategoryCreateDto(s, o);
+    private CategoryCreateDto getCategory(String name, Long parentId) {
+        return new CategoryCreateDto(name, parentId);
     }
-
 
 
 }

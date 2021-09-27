@@ -34,9 +34,9 @@ public class CategoryApiController {
         return ApiResponseDto.OK(categoryService.update(categoryUpdateDto));
     }
 
-    @GetMapping("/parent/{parentID}")
+    @GetMapping("/{parentID}/direct-children") // url 잘 정한거 같다ㅋ
     public ApiResponseDto<List<CategoryFindDto>> getChild(@PathVariable(required = false) Long parentID){
-        return ApiResponseDto.OK(categoryService.getChildren(parentID));
+        return ApiResponseDto.OK(categoryService.getDirectChildren(parentID));
     }
 
     @GetMapping

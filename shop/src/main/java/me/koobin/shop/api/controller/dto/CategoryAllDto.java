@@ -14,12 +14,14 @@ import java.util.List;
 public class CategoryAllDto {
     private Long id;
     private String name;
+    private Long parentId;
     private List<CategoryAllDto> children;
 
     @Builder
-    public CategoryAllDto(Long id, String name) {
+    public CategoryAllDto(Long id, String name, Long parentId) {
         this.id = id;
         this.name = name;
+        this.parentId = parentId;
         this.children = new ArrayList<>();
     }
 
@@ -27,6 +29,7 @@ public class CategoryAllDto {
         return CategoryAllDto.builder()
                 .id(category.getId())
                 .name(category.getName())
+                .parentId(category.getParent() != null ?category.getParent().getId():null)
                 .build();
     }
 }
