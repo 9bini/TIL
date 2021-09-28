@@ -1,5 +1,7 @@
 package me.koobin.shop.api.controller.dto;
 
+import java.util.ArrayList;
+import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +11,7 @@ import me.koobin.shop.domain.ProductGender;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import me.koobin.shop.domain.SeasonType;
 
 @Data
 @Builder
@@ -32,19 +35,21 @@ public class CreateProductDTO {
     private String additionalText;
 
     @NotNull(message = "브랜드는 필수 입니다.")
-    private Long brand;
+    private Long brandId;
 
-    private String productPrecautions;
-    private String orderPrecautions;
-    private String deliveryPrecautions;
+    private String productImportantNotes;
+    private String orderImportantNotes;
+    private String deliveryImportantNotes;
     private String basicExplanation;
-    private List<ModelSizeInfoDto> modelSizeInfoDtos;
-    private List<SizeChartDto> sizeCharts;
+    @Builder.Default
+    private List<ModelSizeInfoDto> modelSizeInfoDtos = new ArrayList<>();
+    @Builder.Default
+    private List<SizeChartDto> sizeCharts = new ArrayList<>();
 
-    // TODO 리스트에서 문자열로 변경 서버에서 문자열을 짤라서 처리
-    private List<String> tags;
-
-    private List<Long> seasons;
+    @NotEmpty
+    private String tag;
+    @Builder.Default
+    private List<SeasonType> seasons = new ArrayList<>();
     private List<Long> forms;
     private List<Long> colors;
     private List<Long> sizes;
@@ -61,6 +66,4 @@ public class CreateProductDTO {
 
     private List<OptionDTO> optionDTOs;
     private List<OptionDetailDTO> optionDetailDTOs;
-
-
 }

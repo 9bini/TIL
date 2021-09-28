@@ -1,91 +1,98 @@
 package me.koobin.shop.domain;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
+import me.koobin.shop.utils.BaseTimeEntity;
 
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
-    @Id
-    @GeneratedValue
-    private Long id;
+@Getter
+public class Product extends BaseTimeEntity {
 
-    @ManyToOne
-    @JoinColumn(name = "CATEGORY_ID", nullable = false)
-    private Category category;
+  @Id
+  @GeneratedValue
+  private Long id; // 상품 아이디
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private ProductGender productGender;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "CATEGORY_ID", nullable = false)
+  private Category category; // 상품 카테고리
 
-    @Column(length = 100, nullable = false)
-    private String exposedProductName;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private ProductGender productGender;
 
-    @Column(length = 100, nullable = false)
-    private String companyProductName;
+  @NotEmpty
+  @Column(length = 100, nullable = false)
+  private String exposedProductName; // 노출 상품명
 
-    @Column(length = 20, nullable = false)
-    private String additionalText;
+  @NotEmpty
+  @Column(length = 100, nullable = false)
+  private String companyProductName; // 업체 상품명
 
-    @ManyToOne
-    @JoinColumn(name = "BRAND_ID", nullable = false)
-    private Brand brand;
+  @Column(length = 20)
+  private String additionalText; // 추가 상품명
 
-    private String productPrecautions;
-    private String orderPrecautions;
-    private String deliveryPrecautions;
-    private String basicExplanation;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "BRAND_ID", nullable = false)
+  private Brand brand; // 상품 브랜드
 
-    @Column(nullable = false)
-    private String productName;
-    @Column(nullable = false)
-    private String manufacturer;
-    @Column(nullable = false)
-    private String countryManufacture;
-    @Column(nullable = false)
-    private String inquiry;
-    @Column(nullable = false)
-    private Long netPrice;
-    @Column(nullable = false)
-    private Long sellingPrice;
-    @Column(nullable = false)
-    private Long discountRate;
-    @Column(nullable = false)
-    private Long mileage;
+  private String productImportantNotes; // 상품 유의사항
+  private String orderImportantNotes; // 주문 유의사항
+  private String deliveryImportantNotes; // 배송 유의사항
+  private String basicExplanation; // 상품 기본 설명
+
+  @OneToMany(mappedBy = "product")
+  @Builder.Default
+  private List<ModelSizeInfo> modelSizeInfos = new ArrayList<>();
+
+  @OneToMany(mappedBy = "product")
+  @Builder.Default
+  private List<SizeChart> sizeCharts = new ArrayList<>();
+
+  @ElementCollection
+  @CollectionTable(name = "product_season", joinColumns = @JoinColumn(name = "product_id"))
+  @Column @Builder.Default
+  private Set<SeasonType> setSeasonType = new HashSet<>();
 
 
-    public static Product newProduct(Category category, Brand brand, ProductGender productGender, String exposedProductName
-            , String companyProductName, String additionalText, String productPrecautions, String orderPrecautions
-            , String deliveryPrecautions, String basicExplanation, String productName, String manufacturer
-            , String countryManufacture, String inquiry, Long netPrice, Long sellingPrice, Long discountRate) {
-        // THING 마일리지 값을 저장해서 처리하는 것이 좋을까 아니면 사용자 등급에 따라 마일리지를 처리하는게 좋을 까
-        // THING 이것도 물로 운영치침에 따라 변경되 겠지
-        return Product.builder()
-                .category(category)
-                .brand(brand)
-                .productGender(productGender)
-                .exposedProductName(exposedProductName)
-                .companyProductName(companyProductName)
-                .additionalText(additionalText)
-                .productPrecautions(productPrecautions)
-                .orderPrecautions(orderPrecautions)
-                .deliveryPrecautions(deliveryPrecautions)
-                .basicExplanation(basicExplanation)
-                .productName(productName)
-                .manufacturer(manufacturer)
-                .countryManufacture(countryManufacture)
-                .inquiry(inquiry)
-                .netPrice(netPrice)
-                .sellingPrice(sellingPrice)
-                .discountRate(discountRate)
-                .mileage(1L)
-                .build();
-    }
+  @Column(nullable = false)
+  private String productName;
+  @Column(nullable = false)
+  private String manufacturer;
+  @Column(nullable = false)
+  private String countryManufacture;
+  @Column(nullable = false)
+  private String inquiry;
+  @Column(nullable = false)
+  private Long netPrice;
+  @Column(nullable = false)
+  private Long sellingPrice;
+  @Column(nullable = false)
+  private Long discountRate;
+  @Column(nullable = false)
+  private Long mileage;
+
 
 }
 

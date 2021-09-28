@@ -3,9 +3,10 @@ package me.koobin.shop.domain;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import me.koobin.shop.utils.BaseTimeEntity;
 
 @Entity @NoArgsConstructor
-public class TagProduct {
+public class TagProduct extends BaseTimeEntity {
     @Id @GeneratedValue
     private Long id;
 
