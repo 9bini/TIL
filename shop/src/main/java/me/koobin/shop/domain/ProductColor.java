@@ -18,7 +18,7 @@ import me.koobin.shop.utils.BaseTimeEntity;
  * @author gutaegyun
  */
 @Entity @NoArgsConstructor
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"product_id", "color"}))
+@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"product_id", "colorType"}))
 public class ProductColor extends BaseTimeEntity {
 
   @Id
@@ -27,15 +27,15 @@ public class ProductColor extends BaseTimeEntity {
 
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
-  private Color color;
+  private ColorType colorType;
 
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "product_id")
   private Product product;
 
-  public ProductColor(Color color, Product product) {
-    this.color = color;
+  public ProductColor(ColorType colorType, Product product) {
+    this.colorType = colorType;
     this.product = product;
   }
 }

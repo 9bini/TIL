@@ -12,7 +12,7 @@ import me.koobin.shop.domain.Brand;
 import me.koobin.shop.domain.BrandRepository;
 import me.koobin.shop.domain.Category;
 import me.koobin.shop.domain.CategoryRepository;
-import me.koobin.shop.domain.Color;
+import me.koobin.shop.domain.ColorType;
 import me.koobin.shop.domain.ProductColor;
 import me.koobin.shop.domain.ColorRepository;
 import me.koobin.shop.domain.ModelSizeInfo;
@@ -104,9 +104,9 @@ public class ProductService {
     createProductDTO.getClothingForm()
         .forEach(clothingForm -> product.getSetClothingForm().add(clothingForm));
 
-    List<Color> colors = createProductDTO.getColors();
-    for (Color color : colors) {
-      colorRepository.save(new ProductColor(color, product));
+    List<ColorType> colorTypes = createProductDTO.getColorTypes();
+    for (ColorType colorType : colorTypes) {
+      colorRepository.save(new ProductColor(colorType, product));
     }
 
 

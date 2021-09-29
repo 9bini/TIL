@@ -7,12 +7,12 @@ import me.koobin.shop.utils.EnumType;
 
 @Getter
 @RequiredArgsConstructor
-public enum Color implements EnumType {
+public enum ColorType implements EnumType {
   RED(java.awt.Color.red), BLUE(java.awt.Color.BLUE), YELLOW(java.awt.Color.YELLOW), BLACK(
       java.awt.Color.BLACK), GRAY(java.awt.Color.GRAY), WHITE(java.awt.Color.white), GREEN(
       java.awt.Color.GREEN), ORANGE(java.awt.Color.ORANGE);
 
-  private final java.awt.Color color;
+  private final Color color;
 
   @Override
   public String getId() {
