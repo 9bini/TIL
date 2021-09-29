@@ -1,6 +1,10 @@
 package me.koobin.shop.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class FileInfo {

@@ -32,4 +32,7 @@ public class ApiResponseDto<T> {
     public static <T> ApiResponseDto<T> OK(T data) {
         return new ApiResponseDto<>(ApiResponseCode.OK, data);
     }
+    public static <T> ApiResponseDto<T> NOT_FOUND(T data) {
+        return new ApiResponseDto<>(ApiResponseCode.NOT_FOUND, data);
+    }
 }

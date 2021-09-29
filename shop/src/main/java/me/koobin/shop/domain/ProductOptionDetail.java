@@ -1,9 +1,12 @@
 package me.koobin.shop.domain;
 
-import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import lombok.NoArgsConstructor;
 
 @Entity @NoArgsConstructor
 public class ProductOptionDetail {

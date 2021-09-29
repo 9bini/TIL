@@ -1,8 +1,7 @@
 package me.koobin.shop.api.controller.dto;
 
-import lombok.Data;
-
 import java.util.List;
+import lombok.Data;
 
 @Data
 public class OptionDTO {

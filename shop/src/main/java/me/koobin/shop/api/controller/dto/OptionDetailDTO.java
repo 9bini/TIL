@@ -1,9 +1,8 @@
 package me.koobin.shop.api.controller.dto;
 
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 import me.koobin.shop.domain.SalesStatus;
-
-import javax.validation.constraints.NotNull;
 
 @Data
 public class OptionDetailDTO {

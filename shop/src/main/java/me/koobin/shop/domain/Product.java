@@ -73,8 +73,12 @@ public class Product extends BaseTimeEntity {
   @ElementCollection
   @CollectionTable(name = "product_season", joinColumns = @JoinColumn(name = "product_id"))
   @Column @Builder.Default
-  private Set<SeasonType> setSeasonType = new HashSet<>();
+  private Set<Season> setSeason = new HashSet<>();
 
+  @ElementCollection
+  @CollectionTable(name = "clothing_form", joinColumns = @JoinColumn(name = "product_id"))
+  @Column @Builder.Default
+  private Set<ClothingForm> setClothingForm = new HashSet<>();
 
   @Column(nullable = false)
   private String productName;

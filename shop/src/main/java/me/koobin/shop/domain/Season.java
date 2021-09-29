@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import me.koobin.shop.utils.EnumType;
 
 @Getter @RequiredArgsConstructor
-public enum SeasonType implements EnumType {
+public enum Season implements EnumType {
     CHANGE_SEASONS("간절기용")
     , SUMMER("여름용")
     , WINTER("겨울용")

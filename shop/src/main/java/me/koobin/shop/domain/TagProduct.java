@@ -1,8 +1,11 @@
 package me.koobin.shop.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 import me.koobin.shop.utils.BaseTimeEntity;
 
 @Entity @NoArgsConstructor

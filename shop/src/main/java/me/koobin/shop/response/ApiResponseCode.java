@@ -22,6 +22,6 @@ public enum ApiResponseCode implements EnumType {
 
     @Override
     public String getText() {
-        return message;
+        return getMessage();
     }
 }

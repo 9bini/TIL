@@ -1,6 +1,5 @@
 package me.koobin.shop.domain;
 
-import java.util.Base64;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;

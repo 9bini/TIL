@@ -1,11 +1,10 @@
 package me.koobin.shop.api.controller.dto;
 
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 import me.koobin.shop.domain.Category;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author gutaegyun

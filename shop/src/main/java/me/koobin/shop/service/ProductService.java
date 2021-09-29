@@ -16,7 +16,6 @@ import me.koobin.shop.domain.ModelSizeInfo;
 import me.koobin.shop.domain.ModelSizeInfoRepository;
 import me.koobin.shop.domain.Product;
 import me.koobin.shop.domain.ProductRepository;
-import me.koobin.shop.domain.SeasonType;
 import me.koobin.shop.domain.SizeChart;
 import me.koobin.shop.domain.SizeChartRepository;
 import me.koobin.shop.domain.Tag;
@@ -97,8 +96,8 @@ public class ProductService {
       tagProductRepository.save(new TagProduct(tag, product));
     }
 
-    createProductDTO.getSeasons().forEach(season -> product.getSetSeasonType().add(season));
-    // 
+    createProductDTO.getSeasons().forEach(season -> product.getSetSeason().add(season));
+    //
 
 
 

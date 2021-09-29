@@ -1,9 +1,8 @@
 package me.koobin.shop.api.controller.dto;
 
+import javax.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
 
 @Data
 @AllArgsConstructor

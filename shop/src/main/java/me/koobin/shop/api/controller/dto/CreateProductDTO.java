@@ -1,17 +1,17 @@
 package me.koobin.shop.api.controller.dto;
 
 import java.util.ArrayList;
+import java.util.List;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.koobin.shop.domain.ProductGender;
+import me.koobin.shop.domain.Season;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.NotNull;
-import java.util.List;
-import me.koobin.shop.domain.SeasonType;
 
 @Data
 @Builder
@@ -49,7 +49,7 @@ public class CreateProductDTO {
     @NotEmpty
     private String tag;
     @Builder.Default
-    private List<SeasonType> seasons = new ArrayList<>();
+    private List<Season> seasons = new ArrayList<>();
     private List<Long> forms;
     private List<Long> colors;
     private List<Long> sizes;

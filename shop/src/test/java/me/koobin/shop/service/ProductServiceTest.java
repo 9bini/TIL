@@ -13,7 +13,8 @@ import me.koobin.shop.domain.FitType;
 import me.koobin.shop.domain.Gender;
 import me.koobin.shop.domain.Product;
 import me.koobin.shop.domain.ProductRepository;
-import me.koobin.shop.domain.SeasonType;
+import me.koobin.shop.domain.Season;
+
 import me.koobin.shop.domain.SizeChart;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -66,8 +67,8 @@ class ProductServiceTest {
             .hemWidth(10)// 밑단 너비
         .build());
 
-    List<SeasonType> seasonTypes = new ArrayList<>();
-    seasonTypes.add(SeasonType.CHANGE_SEASONS);
+    List<Season> seasonTypes = new ArrayList<>();
+    seasonTypes.add(Season.CHANGE_SEASONS);
 
 
     Product product = productService.create(CreateProductDTO.builder()
