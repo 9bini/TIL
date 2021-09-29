@@ -19,6 +19,9 @@ import me.koobin.shop.domain.ModelSizeInfo;
 import me.koobin.shop.domain.ModelSizeInfoRepository;
 import me.koobin.shop.domain.Product;
 import me.koobin.shop.domain.ProductRepository;
+import me.koobin.shop.domain.ProductSize;
+import me.koobin.shop.domain.ProductSizeRepository;
+import me.koobin.shop.domain.Size;
 import me.koobin.shop.domain.SizeChart;
 import me.koobin.shop.domain.SizeChartRepository;
 import me.koobin.shop.domain.Tag;
@@ -41,6 +44,7 @@ public class ProductService {
   private final TagRepository tagRepository;
   private final TagProductRepository tagProductRepository;
   private final ColorRepository colorRepository;
+  private final ProductSizeRepository productSizeRepository;
 
   public Product create(CreateProductDTO createProductDTO) {
     Category category = categoryRepository.findById(createProductDTO.getCategoryId())
@@ -59,6 +63,12 @@ public class ProductService {
             .basicExplanation(createProductDTO.getBasicExplanation()) // 상품 기본 설명
             .category(category)
             .brand(brand)
+            .productName(createProductDTO.getProductName())
+            .manufacturer(createProductDTO.getManufacturer())
+            .countryManufacture(createProductDTO.getCountryManufacture())
+            .inquiry(createProductDTO.getInquiry())
+            .netPrice(createProductDTO.getNetPrice())
+            .sellingPrice(createProductDTO.getSellingPrice())
             .build()
     );
 
@@ -104,11 +114,11 @@ public class ProductService {
     createProductDTO.getClothingForm()
         .forEach(clothingForm -> product.getSetClothingForm().add(clothingForm));
 
-    List<ColorType> colorTypes = createProductDTO.getColorTypes();
-    for (ColorType colorType : colorTypes) {
-      colorRepository.save(new ProductColor(colorType, product));
-    }
+    createProductDTO.getColorTypes().stream().map(colorType -> new ProductColor(colorType, product))
+        .forEach(colorRepository::save);
 
+    createProductDTO.getSizes().stream().map(size -> new ProductSize(product, size))
+        .forEach(productSizeRepository::save);
 
     return product;
   }

@@ -88,7 +88,7 @@ public class Product extends BaseTimeEntity {
   @Column(nullable = false)
   private String countryManufacture;
   @Column(nullable = false)
-  private String inquiry;
+  private String inquiry; // 문의
   @Column(nullable = false)
   private Long netPrice;
   @Column(nullable = false)

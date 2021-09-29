@@ -1,6 +1,7 @@
 package me.koobin.shop.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import me.koobin.shop.api.controller.dto.CreateProductDTO;
 import me.koobin.shop.api.controller.dto.ModelSizeInfoDto;
@@ -10,13 +11,14 @@ import me.koobin.shop.domain.BrandRepository;
 import me.koobin.shop.domain.Category;
 import me.koobin.shop.domain.CategoryRepository;
 import me.koobin.shop.domain.ClothingForm;
-import me.koobin.shop.domain.ColorType;
 import me.koobin.shop.domain.ColorRepository;
+import me.koobin.shop.domain.ColorType;
 import me.koobin.shop.domain.FitType;
 import me.koobin.shop.domain.Gender;
 import me.koobin.shop.domain.Product;
 import me.koobin.shop.domain.ProductRepository;
 import me.koobin.shop.domain.Season;
+import me.koobin.shop.domain.Size;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,13 +73,10 @@ class ProductServiceTest {
         .hemWidth(10)// 밑단 너비
         .build());
 
-    List<Season> seasonTypes = new ArrayList<>();
-    seasonTypes.add(Season.CHANGE_SEASONS);
-
-    List<ClothingForm> clothingForms = new ArrayList<>();
-    clothingForms.add(ClothingForm.KNIT_SWEATER);
-    List<ColorType> colorTypes = new ArrayList<>();
-    colorTypes.add(ColorType.WHITE);
+    List<Season> seasonTypes = Collections.singletonList(Season.CHANGE_SEASONS);
+    List<ClothingForm> clothingForms = Collections.singletonList(ClothingForm.KNIT_SWEATER);
+    List<ColorType> colorTypes = Collections.singletonList(ColorType.WHITE);
+    List<Size> sizes = Collections.singletonList(Size.S);
 
     Product product = productService.create(CreateProductDTO.builder()
         .exposedProductName("노출 상품명")
@@ -94,6 +93,13 @@ class ProductServiceTest {
         .seasons(seasonTypes)
         .clothingForm(clothingForms)
         .colorTypes(colorTypes)
+        .sizes(sizes)
+        .productName("품명 및 모델명")
+        .manufacturer("제조사")
+        .countryManufacture("제조국")
+        .inquiry("AS문의")
+        .netPrice(10000L)
+        .sellingPrice(10000L)
         .build());
 
     // todo: 상품에 필수 데이터는 넣고 생각해보자

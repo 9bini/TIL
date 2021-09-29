@@ -13,6 +13,7 @@ import me.koobin.shop.domain.ClothingForm;
 import me.koobin.shop.domain.ColorType;
 import me.koobin.shop.domain.ProductGender;
 import me.koobin.shop.domain.Season;
+import me.koobin.shop.domain.Size;
 
 
 @Data
@@ -39,10 +40,10 @@ public class CreateProductDTO {
     @NotNull(message = "브랜드는 필수 입니다.")
     private Long brandId;
 
-    private String productImportantNotes;
-    private String orderImportantNotes;
-    private String deliveryImportantNotes;
-    private String basicExplanation;
+    private String productImportantNotes; // 상품 유의사항
+    private String orderImportantNotes; // 주문 유의사항
+    private String deliveryImportantNotes;// 배송 유의 사항
+    private String basicExplanation; // 상품 기본 설명
     @Builder.Default
     private List<ModelSizeInfoDto> modelSizeInfoDtos = new ArrayList<>();
     @Builder.Default
@@ -50,18 +51,23 @@ public class CreateProductDTO {
 
     @NotEmpty
     private String tag;
+
     @Builder.Default
     private List<Season> seasons = new ArrayList<>();
+
     @Builder.Default
     private List<ClothingForm> clothingForm = new ArrayList<>();
+
     @Builder.Default
     private List<ColorType> colorTypes = new ArrayList<>();
-    private List<Long> sizes;
+
+    @Builder.Default
+    private List<Size> sizes = new ArrayList<>();
 
     private String productName;
     private String manufacturer;
     private String countryManufacture;
-    private String inquiry;
+    private String inquiry;// 문의
 
     @NotNull(message = "정가는 필수 입니다.")
     private Long netPrice;

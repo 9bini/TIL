@@ -1,4 +1,4 @@
-package me.koobin.shop.etc;
+package me.koobin.shop.domain;
 
 public enum Size {
     SIZE_24, SIZE_25, SIZE_26, SIZE_27, SIZE_28, SIZE_29
@@ -9,5 +9,5 @@ public enum Size {
     , SIZE_100, SIZE_105
     , SIZE_110
     , S, M, L, XL, XXL, XXXL, XXXXL
-    
+
 }
