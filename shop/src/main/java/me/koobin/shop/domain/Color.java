@@ -1,41 +1,26 @@
 package me.koobin.shop.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import lombok.NoArgsConstructor;
-import me.koobin.shop.utils.BaseTimeEntity;
+import java.awt.Color;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import me.koobin.shop.utils.EnumType;
 
-/**
- * @author gutaegyun
- */
-@Entity @NoArgsConstructor
-@Table(uniqueConstraints = @UniqueConstraint(columnNames = {"product_id", "colorType"}))
-public class Color extends BaseTimeEntity {
+@Getter
+@RequiredArgsConstructor
+public enum Color implements EnumType {
+  RED(java.awt.Color.red), BLUE(java.awt.Color.BLUE), YELLOW(java.awt.Color.YELLOW), BLACK(
+      java.awt.Color.BLACK), GRAY(java.awt.Color.GRAY), WHITE(java.awt.Color.white), GREEN(
+      java.awt.Color.GREEN), ORANGE(java.awt.Color.ORANGE);
 
-  @Id
-  @GeneratedValue
-  private Long id;
+  private final java.awt.Color color;
 
-  @Enumerated(EnumType.STRING)
-  @Column(nullable = false)
-  private ColorType colorType;
+  @Override
+  public String getId() {
+    return name();
+  }
 
-
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "product_id")
-  private Product product;
-
-  public Color(ColorType colorType, Product product) {
-    this.colorType = colorType;
-    this.product = product;
+  @Override
+  public String getText() {
+    return String.valueOf(color.getRGB());
   }
 }
