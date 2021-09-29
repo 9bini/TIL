@@ -12,6 +12,9 @@ import me.koobin.shop.domain.Brand;
 import me.koobin.shop.domain.BrandRepository;
 import me.koobin.shop.domain.Category;
 import me.koobin.shop.domain.CategoryRepository;
+import me.koobin.shop.domain.Color;
+import me.koobin.shop.domain.ColorRepository;
+import me.koobin.shop.domain.ColorType;
 import me.koobin.shop.domain.ModelSizeInfo;
 import me.koobin.shop.domain.ModelSizeInfoRepository;
 import me.koobin.shop.domain.Product;
@@ -37,6 +40,7 @@ public class ProductService {
   private final SizeChartRepository sizeChartRepository;
   private final TagRepository tagRepository;
   private final TagProductRepository tagProductRepository;
+  private final ColorRepository colorRepository;
 
   public Product create(CreateProductDTO createProductDTO) {
     Category category = categoryRepository.findById(createProductDTO.getCategoryId())
@@ -100,7 +104,11 @@ public class ProductService {
     createProductDTO.getClothingForm()
         .forEach(clothingForm -> product.getSetClothingForm().add(clothingForm));
 
-    //
+    List<ColorType> colorTypes = createProductDTO.getColorTypes();
+    for (ColorType colorType : colorTypes) {
+      colorRepository.save(new Color(colorType, product));
+    }
+
 
     return product;
   }

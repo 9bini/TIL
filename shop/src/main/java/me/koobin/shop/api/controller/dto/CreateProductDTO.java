@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.koobin.shop.domain.ClothingForm;
+import me.koobin.shop.domain.ColorType;
 import me.koobin.shop.domain.ProductGender;
 import me.koobin.shop.domain.Season;
 
@@ -52,8 +53,9 @@ public class CreateProductDTO {
     @Builder.Default
     private List<Season> seasons = new ArrayList<>();
     @Builder.Default
-    private List<ClothingForm> clothingForm= new ArrayList<>();
-    private List<Long> colors;
+    private List<ClothingForm> clothingForm = new ArrayList<>();
+    @Builder.Default
+    private List<ColorType> colorTypes = new ArrayList<>();
     private List<Long> sizes;
 
     private String productName;

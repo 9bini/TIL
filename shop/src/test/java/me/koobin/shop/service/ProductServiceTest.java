@@ -10,6 +10,9 @@ import me.koobin.shop.domain.BrandRepository;
 import me.koobin.shop.domain.Category;
 import me.koobin.shop.domain.CategoryRepository;
 import me.koobin.shop.domain.ClothingForm;
+import me.koobin.shop.domain.Color;
+import me.koobin.shop.domain.ColorRepository;
+import me.koobin.shop.domain.ColorType;
 import me.koobin.shop.domain.FitType;
 import me.koobin.shop.domain.Gender;
 import me.koobin.shop.domain.Product;
@@ -33,6 +36,9 @@ class ProductServiceTest {
   CategoryRepository categoryRepository;
   @Autowired
   BrandRepository brandRepository;
+
+  @Autowired
+  ColorRepository colorRepository;
 
   @Test
   void create() {
@@ -71,6 +77,8 @@ class ProductServiceTest {
 
     List<ClothingForm> clothingForms = new ArrayList<>();
     clothingForms.add(ClothingForm.KNIT_SWEATER);
+    List<ColorType> colorTypes = new ArrayList<>();
+    colorTypes.add(ColorType.WHITE);
 
     Product product = productService.create(CreateProductDTO.builder()
         .exposedProductName("노출 상품명")
@@ -86,7 +94,12 @@ class ProductServiceTest {
         .tag("테그,")
         .seasons(seasonTypes)
         .clothingForm(clothingForms)
+        .colorTypes(colorTypes)
         .build());
+
+    // todo: 상품에 필수 데이터는 넣고 생각해보자
+    // List<Color> colors = colorRepository.findByProduct(product);
+    //Assertions.assertEquals(1, colors.size());
 
     Assertions.assertEquals(category, product.getCategory());
     Assertions.assertNotNull(product.getModelSizeInfos());
@@ -96,6 +109,7 @@ class ProductServiceTest {
     Assertions.assertTrue(product.getSetSeason().contains(Season.CHANGE_SEASONS));
     Assertions.assertEquals(1, product.getSetClothingForm().size());
     Assertions.assertTrue(product.getSetClothingForm().contains(ClothingForm.KNIT_SWEATER));
+
 
   }
 

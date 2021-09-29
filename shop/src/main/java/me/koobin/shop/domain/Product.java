@@ -81,6 +81,7 @@ public class Product extends BaseTimeEntity {
   private Set<ClothingForm> setClothingForm = new HashSet<>();
 
   @Column(nullable = false)
+  @NotEmpty
   private String productName;
   @Column(nullable = false)
   private String manufacturer;
