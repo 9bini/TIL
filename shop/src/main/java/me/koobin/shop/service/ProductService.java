@@ -97,9 +97,10 @@ public class ProductService {
     }
 
     createProductDTO.getSeasons().forEach(season -> product.getSetSeason().add(season));
+    createProductDTO.getClothingForm()
+        .forEach(clothingForm -> product.getSetClothingForm().add(clothingForm));
+
     //
-
-
 
     return product;
   }

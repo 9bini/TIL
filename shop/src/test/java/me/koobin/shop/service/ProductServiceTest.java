@@ -9,13 +9,12 @@ import me.koobin.shop.domain.Brand;
 import me.koobin.shop.domain.BrandRepository;
 import me.koobin.shop.domain.Category;
 import me.koobin.shop.domain.CategoryRepository;
+import me.koobin.shop.domain.ClothingForm;
 import me.koobin.shop.domain.FitType;
 import me.koobin.shop.domain.Gender;
 import me.koobin.shop.domain.Product;
 import me.koobin.shop.domain.ProductRepository;
 import me.koobin.shop.domain.Season;
-
-import me.koobin.shop.domain.SizeChart;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,20 +55,22 @@ class ProductServiceTest {
 
     List<SizeChartDto> sizeChartDtos = new ArrayList<>();
     sizeChartDtos.add(SizeChartDto.builder()
-            .sizeName(10) // 사이즈명
-            .totalLength(10) // 총길이
-            .shoulderWidth(10) // 어깨 너비
-            .chestWidth(10) // 가슴너비
-            .sleeveLength(10) // 소매 길이
-            .hipWidth(10) //  엉덩이 너비
-            .riseWidth(10)// 밑위 너비
-            .crotchWidth(10)//가랑이 너비
-            .hemWidth(10)// 밑단 너비
+        .sizeName(10) // 사이즈명
+        .totalLength(10) // 총길이
+        .shoulderWidth(10) // 어깨 너비
+        .chestWidth(10) // 가슴너비
+        .sleeveLength(10) // 소매 길이
+        .hipWidth(10) //  엉덩이 너비
+        .riseWidth(10)// 밑위 너비
+        .crotchWidth(10)//가랑이 너비
+        .hemWidth(10)// 밑단 너비
         .build());
 
     List<Season> seasonTypes = new ArrayList<>();
     seasonTypes.add(Season.CHANGE_SEASONS);
 
+    List<ClothingForm> clothingForms = new ArrayList<>();
+    clothingForms.add(ClothingForm.KNIT_SWEATER);
 
     Product product = productService.create(CreateProductDTO.builder()
         .exposedProductName("노출 상품명")
@@ -84,13 +85,18 @@ class ProductServiceTest {
         .sizeCharts(sizeChartDtos)
         .tag("테그,")
         .seasons(seasonTypes)
+        .clothingForm(clothingForms)
         .build());
 
     Assertions.assertEquals(category, product.getCategory());
     Assertions.assertNotNull(product.getModelSizeInfos());
     Assertions.assertEquals(1, product.getModelSizeInfos().size());
     Assertions.assertEquals(1, product.getSizeCharts().size());
-    Assertions.assertEquals(1, product.getSetSeasonType().size());
+    Assertions.assertEquals(1, product.getSetSeason().size());
+    Assertions.assertTrue(product.getSetSeason().contains(Season.CHANGE_SEASONS));
+    Assertions.assertEquals(1, product.getSetClothingForm().size());
+    Assertions.assertTrue(product.getSetClothingForm().contains(ClothingForm.KNIT_SWEATER));
+
   }
 
 }
