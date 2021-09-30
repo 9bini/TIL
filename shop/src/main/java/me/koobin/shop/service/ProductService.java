@@ -7,21 +7,26 @@ import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import me.koobin.shop.api.controller.dto.CreateProductDTO;
 import me.koobin.shop.api.controller.dto.ModelSizeInfoDto;
+import me.koobin.shop.api.controller.dto.ProductOptionDetailDto;
+import me.koobin.shop.api.controller.dto.ProductOptionDto;
+import me.koobin.shop.api.controller.dto.ProductOptionValueDto;
 import me.koobin.shop.api.controller.dto.SizeChartDto;
 import me.koobin.shop.domain.Brand;
 import me.koobin.shop.domain.BrandRepository;
 import me.koobin.shop.domain.Category;
 import me.koobin.shop.domain.CategoryRepository;
-import me.koobin.shop.domain.ColorType;
-import me.koobin.shop.domain.ProductColor;
-import me.koobin.shop.domain.ColorRepository;
 import me.koobin.shop.domain.ModelSizeInfo;
 import me.koobin.shop.domain.ModelSizeInfoRepository;
 import me.koobin.shop.domain.Product;
+import me.koobin.shop.domain.ProductColor;
+import me.koobin.shop.domain.ProductColorRepository;
+import me.koobin.shop.domain.ProductOption;
+import me.koobin.shop.domain.ProductOptionRepository;
+import me.koobin.shop.domain.ProductOptionValue;
+import me.koobin.shop.domain.ProductOptionValueRepository;
 import me.koobin.shop.domain.ProductRepository;
 import me.koobin.shop.domain.ProductSize;
 import me.koobin.shop.domain.ProductSizeRepository;
-import me.koobin.shop.domain.Size;
 import me.koobin.shop.domain.SizeChart;
 import me.koobin.shop.domain.SizeChartRepository;
 import me.koobin.shop.domain.Tag;
@@ -43,8 +48,10 @@ public class ProductService {
   private final SizeChartRepository sizeChartRepository;
   private final TagRepository tagRepository;
   private final TagProductRepository tagProductRepository;
-  private final ColorRepository colorRepository;
+  private final ProductColorRepository productColorRepository;
   private final ProductSizeRepository productSizeRepository;
+  private final ProductOptionRepository productOptionRepository;
+  private final ProductOptionValueRepository productOptionValueRepository;
 
   public Product create(CreateProductDTO createProductDTO) {
     Category category = categoryRepository.findById(createProductDTO.getCategoryId())
@@ -55,6 +62,7 @@ public class ProductService {
 
     Product product = productRepository.save(
         Product.builder()
+            .productGender(createProductDTO.getProductGender())
             .exposedProductName(createProductDTO.getExposedProductName())  // 노출 상품명
             .companyProductName(createProductDTO.getCompanyProductName()) // 업체 상품명
             .productImportantNotes(createProductDTO.getProductImportantNotes()) // 상품 유의사항
@@ -115,10 +123,31 @@ public class ProductService {
         .forEach(clothingForm -> product.getSetClothingForm().add(clothingForm));
 
     createProductDTO.getColorTypes().stream().map(colorType -> new ProductColor(colorType, product))
-        .forEach(colorRepository::save);
+        .forEach(productColorRepository::save);
 
     createProductDTO.getSizes().stream().map(size -> new ProductSize(product, size))
         .forEach(productSizeRepository::save);
+
+    for (ProductOptionDto productOptionDto : createProductDTO.getProductOptionDtos()) {
+      ProductOption productOption = productOptionRepository.save(
+          ProductOption.builder()
+              .requireOption(productOptionDto.getRequire())
+              .name(productOptionDto.getOptionName())
+              .build()
+      );
+
+      for (ProductOptionValueDto productOptionValueDto : productOptionDto.getProductOptionValueDtos()) {
+        ProductOptionValue productOptionValue = productOptionValueRepository.save(
+            ProductOptionValue.builder()
+                .productOption(productOption)
+                .additionalAmount(productOptionValueDto.getAdditionalAmount())
+                .valueName(productOptionValueDto.getValueName())
+                .supplyPrice(productOptionValueDto.getSupplyPrice())
+                .build()
+        );
+        productOptionValueDto.setEntityId(productOptionValue.getId());
+      }
+    }
 
     return product;
   }

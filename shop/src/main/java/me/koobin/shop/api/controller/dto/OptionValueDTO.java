@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class OptionValueDTO {
     private Long index;
-    private String value;
+    private String valueName;
     private Long additionalAmount;
     private Long supplyPrice;
 }

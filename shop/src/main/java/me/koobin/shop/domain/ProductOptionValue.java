@@ -5,9 +5,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity @NoArgsConstructor
+@Getter
 public class ProductOptionValue {
     @Id @GeneratedValue
     private Long id;
@@ -16,13 +19,15 @@ public class ProductOptionValue {
     @JoinColumn(name = "PRODUCT_OPTION_ID")
     private ProductOption productOption;
 
-    private String value;
+    private String valueName;
     private Long additionalAmount;
     private Long supplyPrice;
 
-    public ProductOptionValue(ProductOption productOption, String value, Long additionalAmount, Long supplyPrice) {
+
+    @Builder
+    public ProductOptionValue(ProductOption productOption, String valueName, Long additionalAmount, Long supplyPrice) {
         this.productOption = productOption;
-        this.value = value;
+        this.valueName = valueName;
         this.additionalAmount = additionalAmount;
         this.supplyPrice = supplyPrice;
     }

@@ -24,10 +24,10 @@ import lombok.NoArgsConstructor;
 import me.koobin.shop.utils.BaseTimeEntity;
 
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Builder
 public class Product extends BaseTimeEntity {
 
   @Id
@@ -72,12 +72,14 @@ public class Product extends BaseTimeEntity {
 
   @ElementCollection
   @CollectionTable(name = "product_season", joinColumns = @JoinColumn(name = "product_id"))
-  @Column @Builder.Default
+  @Column
+  @Builder.Default
   private Set<Season> setSeason = new HashSet<>();
 
   @ElementCollection
   @CollectionTable(name = "clothing_form", joinColumns = @JoinColumn(name = "product_id"))
-  @Column @Builder.Default
+  @Column
+  @Builder.Default
   private Set<ClothingForm> setClothingForm = new HashSet<>();
 
   @Column(nullable = false)
@@ -93,10 +95,7 @@ public class Product extends BaseTimeEntity {
   private Long netPrice;
   @Column(nullable = false)
   private Long sellingPrice;
-  @Column(nullable = false)
-  private Long discountRate;
-  @Column(nullable = false)
-  private Long mileage;
+
 
 
 }

@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 import me.koobin.shop.domain.ClothingForm;
 import me.koobin.shop.domain.ColorType;
 import me.koobin.shop.domain.ProductGender;
+import me.koobin.shop.domain.ProductOptionValue;
 import me.koobin.shop.domain.Season;
 import me.koobin.shop.domain.Size;
 
@@ -21,59 +22,65 @@ import me.koobin.shop.domain.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateProductDTO {
-    @NotNull(message = "카테고리는 필수 입니다.")
-    private Long categoryId;
 
-    @NotNull(message = "상품 성별은 필수 입니다.")
-    private ProductGender productGender;
+  @NotNull(message = "카테고리는 필수 입니다.")
+  private Long categoryId;
 
-    @Max(value = 100)
-    @NotNull(message = "노출 상품명은 필수 입니다.")
-    private String exposedProductName;
+  @NotNull(message = "상품 성별은 필수 입니다.")
+  private ProductGender productGender;
 
-    @Max(value = 100)
-    @NotNull(message = "업체상품명은 필수 입니다.")
-    private String companyProductName;
+  @Max(value = 100)
+  @NotNull(message = "노출 상품명은 필수 입니다.")
+  private String exposedProductName;
 
-    private String additionalText;
+  @Max(value = 100)
+  @NotNull(message = "업체상품명은 필수 입니다.")
+  private String companyProductName;
 
-    @NotNull(message = "브랜드는 필수 입니다.")
-    private Long brandId;
+  private String additionalText;
 
-    private String productImportantNotes; // 상품 유의사항
-    private String orderImportantNotes; // 주문 유의사항
-    private String deliveryImportantNotes;// 배송 유의 사항
-    private String basicExplanation; // 상품 기본 설명
-    @Builder.Default
-    private List<ModelSizeInfoDto> modelSizeInfoDtos = new ArrayList<>();
-    @Builder.Default
-    private List<SizeChartDto> sizeCharts = new ArrayList<>();
+  @NotNull(message = "브랜드는 필수 입니다.")
+  private Long brandId;
 
-    @NotEmpty
-    private String tag;
+  private String productImportantNotes; // 상품 유의사항
+  private String orderImportantNotes; // 주문 유의사항
+  private String deliveryImportantNotes;// 배송 유의 사항
+  private String basicExplanation; // 상품 기본 설명
+  @Builder.Default
+  private List<ModelSizeInfoDto> modelSizeInfoDtos = new ArrayList<>();
+  @Builder.Default
+  private List<SizeChartDto> sizeCharts = new ArrayList<>();
 
-    @Builder.Default
-    private List<Season> seasons = new ArrayList<>();
+  @NotEmpty
+  private String tag;
 
-    @Builder.Default
-    private List<ClothingForm> clothingForm = new ArrayList<>();
+  @Builder.Default
+  private List<Season> seasons = new ArrayList<>();
 
-    @Builder.Default
-    private List<ColorType> colorTypes = new ArrayList<>();
+  @Builder.Default
+  private List<ClothingForm> clothingForm = new ArrayList<>();
 
-    @Builder.Default
-    private List<Size> sizes = new ArrayList<>();
+  @Builder.Default
+  private List<ColorType> colorTypes = new ArrayList<>();
 
-    private String productName;
-    private String manufacturer;
-    private String countryManufacture;
-    private String inquiry;// 문의
+  @Builder.Default
+  private List<Size> sizes = new ArrayList<>();
 
-    @NotNull(message = "정가는 필수 입니다.")
-    private Long netPrice;
-    @NotNull(message = "판매가는 필수 입니다.")
-    private Long sellingPrice;
+  private String productName;
+  private String manufacturer;
+  private String countryManufacture;
+  private String inquiry;// 문의
 
-    private List<OptionDTO> optionDTOs;
-    private List<OptionDetailDTO> optionDetailDTOs;
+  @NotNull(message = "정가는 필수 입니다.")
+  private Long netPrice;
+  @NotNull(message = "판매가는 필수 입니다.")
+  private Long sellingPrice;
+
+  @Builder.Default
+  private List<ProductOptionDto> productOptionDtos = new ArrayList<>();
+
+
+  @Builder.Default
+  private List<ProductOptionDetailDto> productOptionDetailDTOS = new ArrayList<>();
+
 }

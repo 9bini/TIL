@@ -22,8 +22,8 @@ public class ProductOptionDetail {
     @JoinColumn(name = "PRODUCT_OPTION_VALUE_ID")
     private ProductOptionValue productOptionValue;
 
-    private Long optionAdditionalPrice;
-    private Long maxPurchaseQuantity;
+    private Long optionAdditionalPrice; // 추가금액
+    private Long maxPurchaseQuantity; //
     @NotNull(message = "최대 구매수량 제한없음은 필수 입니다.")
     private Boolean maxUnlimited;
     private SalesStatus salesStatus;

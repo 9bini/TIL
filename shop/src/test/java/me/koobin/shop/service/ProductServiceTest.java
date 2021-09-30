@@ -1,25 +1,32 @@
 package me.koobin.shop.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import me.koobin.shop.api.controller.dto.CreateProductDTO;
 import me.koobin.shop.api.controller.dto.ModelSizeInfoDto;
+import me.koobin.shop.api.controller.dto.ProductOptionDto;
+import me.koobin.shop.api.controller.dto.ProductOptionValueDto;
 import me.koobin.shop.api.controller.dto.SizeChartDto;
 import me.koobin.shop.domain.Brand;
 import me.koobin.shop.domain.BrandRepository;
 import me.koobin.shop.domain.Category;
 import me.koobin.shop.domain.CategoryRepository;
 import me.koobin.shop.domain.ClothingForm;
-import me.koobin.shop.domain.ColorRepository;
 import me.koobin.shop.domain.ColorType;
 import me.koobin.shop.domain.FitType;
 import me.koobin.shop.domain.Gender;
 import me.koobin.shop.domain.Product;
+import me.koobin.shop.domain.ProductColor;
+import me.koobin.shop.domain.ProductColorRepository;
+import me.koobin.shop.domain.ProductGender;
 import me.koobin.shop.domain.ProductRepository;
 import me.koobin.shop.domain.Season;
 import me.koobin.shop.domain.Size;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,7 +46,7 @@ class ProductServiceTest {
   BrandRepository brandRepository;
 
   @Autowired
-  ColorRepository colorRepository;
+  ProductColorRepository productColorRepository;
 
   @Test
   void create() {
@@ -78,7 +85,22 @@ class ProductServiceTest {
     List<ColorType> colorTypes = Collections.singletonList(ColorType.WHITE);
     List<Size> sizes = Collections.singletonList(Size.S);
 
+    List<ProductOptionValueDto> productOptionValueDtos = Collections.singletonList(
+        ProductOptionValueDto.builder()
+            .sequence(1L)
+            .valueName("L")
+            .additionalAmount(0L)
+            .supplyPrice(0L)
+            .build());
+
+    List<ProductOptionDto> productOptionDtos = Collections.singletonList(ProductOptionDto.builder()
+        .optionName("Size")
+        .require(Boolean.TRUE)
+        .productOptionValueDtos(productOptionValueDtos)
+        .build());
+
     Product product = productService.create(CreateProductDTO.builder()
+        .productGender(ProductGender.MALE)
         .exposedProductName("노출 상품명")
         .companyProductName("업체 상품명")
         .productImportantNotes("상품 유의사항")
@@ -99,22 +121,24 @@ class ProductServiceTest {
         .countryManufacture("제조국")
         .inquiry("AS문의")
         .netPrice(10000L)
-        .sellingPrice(10000L)
+        .sellingPrice(5000L)
+        .productOptionDtos(productOptionDtos)
         .build());
 
     // todo: 상품에 필수 데이터는 넣고 생각해보자
-    // List<Color> colors = colorRepository.findByProduct(product);
-    //Assertions.assertEquals(1, colors.size());
+    List<ProductColor> colors = productColorRepository.findByProduct(product);
 
-    Assertions.assertEquals(category, product.getCategory());
-    Assertions.assertNotNull(product.getModelSizeInfos());
-    Assertions.assertEquals(1, product.getModelSizeInfos().size());
-    Assertions.assertEquals(1, product.getSizeCharts().size());
-    Assertions.assertEquals(1, product.getSetSeason().size());
-    Assertions.assertTrue(product.getSetSeason().contains(Season.CHANGE_SEASONS));
-    Assertions.assertEquals(1, product.getSetClothingForm().size());
-    Assertions.assertTrue(product.getSetClothingForm().contains(ClothingForm.KNIT_SWEATER));
-
+    assertEquals(category, product.getCategory());
+    assertNotNull(product.getModelSizeInfos());
+    assertEquals(1, product.getModelSizeInfos().size());
+    assertEquals(1, product.getSizeCharts().size());
+    assertEquals(1, product.getSetSeason().size());
+    assertTrue(product.getSetSeason().contains(Season.CHANGE_SEASONS));
+    assertEquals(1, product.getSetClothingForm().size());
+    assertTrue(product.getSetClothingForm().contains(ClothingForm.KNIT_SWEATER));
+    assertEquals(10000L, product.getNetPrice());
+    assertEquals(5000L, product.getSellingPrice());
+    assertEquals(1, colors.size());
 
   }
 

@@ -1,13 +1,20 @@
 package me.koobin.shop.api.controller.dto;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import me.koobin.shop.domain.SalesStatus;
 
-@Data
-public class OptionDetailDTO {
-    private Long optionIndex;
-    private Long optionValueIndex;
+@Data @AllArgsConstructor @NoArgsConstructor
+@Builder
+public class ProductOptionDetailDto {
+
+    @Builder.Default
+    private List<Long> productOptionValueSequences = new ArrayList<>();
 
     private Long optionAdditionalPrice;
     private Long maxPurchaseQuantity;
