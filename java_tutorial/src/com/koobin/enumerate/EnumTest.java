@@ -3,6 +3,7 @@ package com.koobin.enumerate;
 /**
  * @author gutaegyun
  */
+
 public class EnumTest {
 
   Day day;
@@ -33,6 +34,7 @@ public class EnumTest {
   }
 
   public static void main(String[] args) {
+    // 생성자는 직접 호출할 수 없습니다.
     EnumTest firstDay = new EnumTest(Day.MONDAY);
     firstDay.tellItLikeItIs();
     EnumTest thirdDay = new EnumTest(Day.WEDNESDAY);
