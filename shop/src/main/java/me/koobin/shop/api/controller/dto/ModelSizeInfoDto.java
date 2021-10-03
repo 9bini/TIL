@@ -2,8 +2,8 @@ package me.koobin.shop.api.controller.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import me.koobin.shop.domain.FitType;
-import me.koobin.shop.domain.Gender;
+import me.koobin.shop.domain.modelsize.FitType;
+import me.koobin.shop.domain.modelsize.Gender;
 
 @Data @Builder
 public class ModelSizeInfoDto {

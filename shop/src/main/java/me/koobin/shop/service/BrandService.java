@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import me.koobin.shop.api.controller.dto.BrandCreateDto;
 import me.koobin.shop.api.controller.dto.BrandFindDto;
-import me.koobin.shop.domain.Brand;
-import me.koobin.shop.domain.BrandRepository;
+import me.koobin.shop.domain.brand.Brand;
+import me.koobin.shop.domain.brand.BrandRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

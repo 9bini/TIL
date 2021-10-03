@@ -12,8 +12,8 @@ import me.koobin.shop.api.controller.dto.CategoryAllDto;
 import me.koobin.shop.api.controller.dto.CategoryCreateDto;
 import me.koobin.shop.api.controller.dto.CategoryFindDto;
 import me.koobin.shop.api.controller.dto.CategoryUpdateDto;
-import me.koobin.shop.domain.Category;
-import me.koobin.shop.domain.CategoryRepository;
+import me.koobin.shop.domain.category.Category;
+import me.koobin.shop.domain.category.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 @Service

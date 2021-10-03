@@ -4,16 +4,17 @@ import lombok.RequiredArgsConstructor;
 import me.koobin.shop.api.controller.dto.CreateProductDTO;
 import me.koobin.shop.api.controller.dto.ProductOptionDto;
 import me.koobin.shop.api.controller.dto.ProductOptionValueDto;
-import me.koobin.shop.domain.Brand;
-import me.koobin.shop.domain.Category;
-import me.koobin.shop.domain.ClothingForm;
-import me.koobin.shop.domain.Product;
-import me.koobin.shop.domain.ProductOption;
-import me.koobin.shop.domain.ProductOptionRepository;
-import me.koobin.shop.domain.ProductOptionValue;
-import me.koobin.shop.domain.ProductOptionValueRepository;
-import me.koobin.shop.domain.ProductRepository;
-import me.koobin.shop.domain.Season;
+import me.koobin.shop.api.controller.dto.ProductOptionValueGroupOptionDto;
+import me.koobin.shop.domain.product.ClothingForm;
+import me.koobin.shop.domain.productoptionvaluegroup.ProductOptionValueGroup;
+import me.koobin.shop.domain.productoptionvaluegroupoption.ProductOptionValueGroupOption;
+import me.koobin.shop.domain.productoptionvaluegroupoption.ProductOptionValueGroupOptionRepository;
+import me.koobin.shop.domain.productoptionvaluegroup.ProductOptionValueGroupRepository;
+import me.koobin.shop.domain.product.Season;
+import me.koobin.shop.domain.brand.Brand;
+import me.koobin.shop.domain.category.Category;
+import me.koobin.shop.domain.product.Product;
+import me.koobin.shop.domain.product.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,8 +33,8 @@ public class ProductService {
 
   private final ProductColorService productColorService;
   private final SizeService sizeService;
-  private final ProductOptionRepository productOptionRepository;
-  private final ProductOptionValueRepository productOptionValueRepository;
+  private final ProductOptionService productOptionService;
+  private final ProductOptionValueGroupOptionService productOptionValueGroupOptionService;
 
   public Product processCreate(CreateProductDTO createProductDTO) {
 
@@ -49,30 +50,11 @@ public class ProductService {
     productColorService.insertProductColors(createProductDTO, product);
     sizeService.insertSizes(createProductDTO, product);
 
-    for (ProductOptionDto productOptionDto : createProductDTO.getProductOptionDtos()) {
-      ProductOption productOption = productOptionRepository.save(
-          ProductOption.builder()
-              .requireOption(productOptionDto.getRequire())
-              .name(productOptionDto.getOptionName())
-              .build()
-      );
-
-      for (ProductOptionValueDto productOptionValueDto : productOptionDto.getProductOptionValueDtos()) {
-        ProductOptionValue productOptionValue = productOptionValueRepository.save(
-            ProductOptionValue.builder()
-                .productOption(productOption)
-                .additionalAmount(productOptionValueDto.getAdditionalAmount())
-                .valueName(productOptionValueDto.getValueName())
-                .supplyPrice(productOptionValueDto.getSupplyPrice())
-                .build()
-        );
-        productOptionValueDto.setEntityId(productOptionValue.getId());
-      }
-    }
+    productOptionService.saveNewProductOptions(createProductDTO);
+    productOptionValueGroupOptionService.processProductOptionValueGroupOption(createProductDTO);
 
     return product;
   }
-
 
   private void addClothingForms(CreateProductDTO createProductDTO, Product product) {
     for (ClothingForm clothingForm : createProductDTO.getClothingForm()) {

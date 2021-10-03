@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import me.koobin.shop.api.controller.dto.CreateProductDTO;
-import me.koobin.shop.domain.Product;
-import me.koobin.shop.domain.Tag;
-import me.koobin.shop.domain.TagProduct;
-import me.koobin.shop.domain.TagProductRepository;
-import me.koobin.shop.domain.TagRepository;
+import me.koobin.shop.domain.product.Product;
+import me.koobin.shop.domain.tag.Tag;
+import me.koobin.shop.domain.tagproduct.TagProduct;
+import me.koobin.shop.domain.tagproduct.TagProductRepository;
+import me.koobin.shop.domain.tag.TagRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

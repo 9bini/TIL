@@ -3,7 +3,7 @@ package me.koobin.shop.api.controller.dto;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.koobin.shop.domain.Brand;
+import me.koobin.shop.domain.brand.Brand;
 
 /**
  * @author gutaegyun

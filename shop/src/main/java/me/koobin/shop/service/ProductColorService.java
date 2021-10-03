@@ -2,10 +2,10 @@ package me.koobin.shop.service;
 
 import lombok.RequiredArgsConstructor;
 import me.koobin.shop.api.controller.dto.CreateProductDTO;
-import me.koobin.shop.domain.ColorType;
-import me.koobin.shop.domain.Product;
-import me.koobin.shop.domain.ProductColor;
-import me.koobin.shop.domain.ProductColorRepository;
+import me.koobin.shop.domain.productcolor.ColorType;
+import me.koobin.shop.domain.product.Product;
+import me.koobin.shop.domain.productcolor.ProductColor;
+import me.koobin.shop.domain.productcolor.ProductColorRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -9,11 +9,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import me.koobin.shop.domain.ClothingForm;
-import me.koobin.shop.domain.ColorType;
-import me.koobin.shop.domain.ProductGender;
-import me.koobin.shop.domain.Season;
-import me.koobin.shop.domain.Size;
+import me.koobin.shop.domain.product.ClothingForm;
+import me.koobin.shop.domain.productcolor.ColorType;
+import me.koobin.shop.domain.product.ProductGender;
+import me.koobin.shop.domain.product.Season;
+import me.koobin.shop.domain.productsize.SizeType;
 
 
 @Data
@@ -63,7 +63,7 @@ public class CreateProductDTO {
   private List<ColorType> colorTypes = new ArrayList<>();
 
   @Builder.Default
-  private List<Size> sizes = new ArrayList<>();
+  private List<SizeType> sizeTypes = new ArrayList<>();
 
   private String productName;
   private String manufacturer;
@@ -80,6 +80,6 @@ public class CreateProductDTO {
 
 
   @Builder.Default
-  private List<ProductOptionDetailDto> productOptionDetailDTOS = new ArrayList<>();
+  private List<ProductOptionValueGroupOptionDto> productOptionValueGroupOptionDtos = new ArrayList<>();
 
 }

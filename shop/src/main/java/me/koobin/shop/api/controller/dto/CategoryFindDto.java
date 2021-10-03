@@ -2,7 +2,7 @@ package me.koobin.shop.api.controller.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import me.koobin.shop.domain.Category;
+import me.koobin.shop.domain.category.Category;
 
 
 @Data

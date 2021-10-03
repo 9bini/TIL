@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.koobin.shop.domain.productoptionvalue.ProductOptionValue;
 
 /**
  * @author gutaegyun
@@ -15,5 +16,5 @@ public class ProductOptionValueDto {
   private String valueName;
   private Long additionalAmount;
   private Long supplyPrice;
-  private Long entityId;
+  private ProductOptionValue productOptionValue;
 }

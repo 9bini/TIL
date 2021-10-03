@@ -56,7 +56,7 @@ Content-Type: application/json
     202,
     203
   ],
-  "sizes": [
+  "sizeTypes": [
     301,
     302,
     303

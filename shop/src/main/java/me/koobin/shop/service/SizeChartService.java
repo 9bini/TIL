@@ -3,9 +3,9 @@ package me.koobin.shop.service;
 import lombok.RequiredArgsConstructor;
 import me.koobin.shop.api.controller.dto.CreateProductDTO;
 import me.koobin.shop.api.controller.dto.SizeChartDto;
-import me.koobin.shop.domain.Product;
-import me.koobin.shop.domain.SizeChart;
-import me.koobin.shop.domain.SizeChartRepository;
+import me.koobin.shop.domain.product.Product;
+import me.koobin.shop.domain.sizechart.SizeChart;
+import me.koobin.shop.domain.sizechart.SizeChartRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
