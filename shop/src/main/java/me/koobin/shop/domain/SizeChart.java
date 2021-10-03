@@ -21,7 +21,7 @@ public class SizeChart extends BaseTimeEntity {
   @GeneratedValue
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "PRODUCT_ID")
   private Product product;
 

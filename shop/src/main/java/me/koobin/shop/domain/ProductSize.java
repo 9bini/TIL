@@ -23,7 +23,7 @@ public class ProductSize extends BaseTimeEntity {
   @Id @GeneratedValue
   private Long id;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "product_id")
   private Product product;
 

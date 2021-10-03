@@ -34,7 +34,7 @@ public class Product extends BaseTimeEntity {
   @GeneratedValue
   private Long id; // 상품 아이디
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "CATEGORY_ID", nullable = false)
   private Category category; // 상품 카테고리
 
@@ -53,7 +53,7 @@ public class Product extends BaseTimeEntity {
   @Column(length = 20)
   private String additionalText; // 추가 상품명
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "BRAND_ID", nullable = false)
   private Brand brand; // 상품 브랜드
 
@@ -95,7 +95,6 @@ public class Product extends BaseTimeEntity {
   private Long netPrice;
   @Column(nullable = false)
   private Long sellingPrice;
-
 
 
 }

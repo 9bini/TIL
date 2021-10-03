@@ -30,7 +30,7 @@ public class ProductColor extends BaseTimeEntity {
   private ColorType colorType;
 
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "product_id")
   private Product product;
 

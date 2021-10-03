@@ -99,7 +99,7 @@ class ProductServiceTest {
         .productOptionValueDtos(productOptionValueDtos)
         .build());
 
-    Product product = productService.create(CreateProductDTO.builder()
+    Product product = productService.processCreate(CreateProductDTO.builder()
         .productGender(ProductGender.MALE)
         .exposedProductName("노출 상품명")
         .companyProductName("업체 상품명")
@@ -125,7 +125,6 @@ class ProductServiceTest {
         .productOptionDtos(productOptionDtos)
         .build());
 
-    // todo: 상품에 필수 데이터는 넣고 생각해보자
     List<ProductColor> colors = productColorRepository.findByProduct(product);
 
     assertEquals(category, product.getCategory());

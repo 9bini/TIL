@@ -39,4 +39,8 @@ public class BrandService {
                 .collect(Collectors.toList())
                 ;
     }
+
+    public Brand brand(Long brandId){
+        return brandRepository.findById(brandId).orElseThrow(IllegalArgumentException::new);
+    }
 }

@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 import me.koobin.shop.domain.ClothingForm;
 import me.koobin.shop.domain.ColorType;
 import me.koobin.shop.domain.ProductGender;
-import me.koobin.shop.domain.ProductOptionValue;
 import me.koobin.shop.domain.Season;
 import me.koobin.shop.domain.Size;
 

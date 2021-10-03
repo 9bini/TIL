@@ -15,7 +15,7 @@ public class ProductApiController {
 
     @PostMapping
     public String register(CreateProductDTO createProductDTO){
-        productService.create(createProductDTO);
+        productService.processCreate(createProductDTO);
         return "";
     }
 }

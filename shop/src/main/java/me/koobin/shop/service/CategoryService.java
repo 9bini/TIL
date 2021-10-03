@@ -102,4 +102,8 @@ public class CategoryService {
         result.delete(result.length()-3, result.length());
         return result.toString();
     }
+
+    public Category category(Long categoryId){
+        return categoryRepository.findById(categoryId).orElseThrow(IllegalArgumentException::new);
+    }
 }
